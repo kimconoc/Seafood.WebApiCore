@@ -186,3 +186,7 @@ C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\obj\Deb
 C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\obj\Debug\net6.0\Seafood.WebApi.pdb
 C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\obj\Debug\net6.0\Seafood.WebApi.genruntimeconfig.cache
 C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\obj\Debug\net6.0\ref\Seafood.WebApi.dll
+C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\bin\Debug\net6.0\Scrutor.dll
+C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\hieu.trinhduc\Documents\GitHub\Seafood.WebApiCore\WebApi\WebApi\bin\Debug\net6.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

@@ -40,7 +40,8 @@ namespace Seafood.Application.Repositories.Users
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Name, request.UserName)
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Roles)
             };
 
             var token = new JwtSecurityToken(_config["Tokens:Issuer"],

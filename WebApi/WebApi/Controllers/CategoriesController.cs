@@ -18,14 +18,15 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAll()
         {
             var categories = await _categoryRepository.GetAll();
             return Ok(categories);
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromForm] CategoryRequest request)
         {
             try
@@ -38,8 +39,8 @@ namespace Seafood.WebApi.Controllers
             }
         }
 
-        [Authorize]
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(Guid id, [FromForm] CategoryRequest request)
         {
 
@@ -54,8 +55,8 @@ namespace Seafood.WebApi.Controllers
             }
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

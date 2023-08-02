@@ -17,14 +17,14 @@
                 CommandParameter="{Binding ElementName=controlBarUC}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid VerticalAlignment="Top">
+    <Grid>
         <materialDesign:ColorZone
             Background="Black"
             Foreground="White"
             Mode="Custom">
             <DockPanel LastChildFill="False">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                    <!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />-->
                     <Grid Margin="10 0 -5 0">
                         <materialDesign:PackIcon VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Kind="MicrosoftWindows"/>
                     </Grid>

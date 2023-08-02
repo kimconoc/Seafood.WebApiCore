@@ -9,16 +9,16 @@ namespace DataAccess.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAll();
+        IEnumerable<T> GetAll();
 
-        Task<T> GetById(Guid id);
+        T GetById(Guid id);
 
-        Task<T> Create(T entity);
+        T Create(T entity);
 
-        Task<T> Update(T entity);
+        T Update(T entity);
 
-        Task Delete(T entity);
+        void Delete(T entity);
 
-        Task<bool> IsExisted(Expression<Func<T, bool>> expression);
+        bool IsExisted(Expression<Func<T, bool>> expression);
     }
 }

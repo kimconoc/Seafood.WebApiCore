@@ -1,11 +1,11 @@
-﻿<Window x:Class="WpfApp.Windows.SignInWindow"
+﻿<Window x:Class="WpfApp.Views.Auth.SignInWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp.Windows"
+        xmlns:local="clr-namespace:WpfApp.Views.Auth"
         mc:Ignorable="d"
-        Title="" Height="500" Width="750"
+        Title="SEAFOOD" Height="500" Width="750"
 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -16,24 +16,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 
-        DataContext="{StaticResource SignInVM}"
-
-        WindowStyle="None"
+        WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterScreen"
 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:uc="clr-namespace:WpfApp.Views.Common"
+
 
         Name="signInWindow">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="9*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <uc:ControlBarUC Tag="{Binding Title, ElementName=signInWindow}"/>
-        </Grid>
-        <Grid MaxHeight="{Binding Height}" Grid.Row="1">
+        <Grid MaxHeight="{Binding Height}" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -67,7 +58,7 @@
                         <Grid Grid.Row="1" VerticalAlignment="Center">
                             <TextBox
                                 VerticalAlignment="Top"
-                                Text="{Binding UserName}"
+                                Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 materialDesign:HintAssist.Hint="Username"
                                 Style="{StaticResource MaterialDesignOutlinedTextBox}">
                             </TextBox>
@@ -75,6 +66,7 @@
                         <Grid Grid.Row="2">
                             <PasswordBox
                                 x:Name="PasswordBox"
+                                Password="string123"
                                 materialDesign:HintAssist.Hint="Password"
                                 Height="50"
                                 Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}">

@@ -20,39 +20,40 @@ namespace DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<T> Create(T entity)
+        public T Create(T entity)
         {
             _context.Set<T>().Add(entity);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return entity;
         }
 
-        public async Task Delete(T entity)
+        public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task<T> GetById(Guid id)
+        public T GetById(Guid id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return _context.Set<T>().Find(id);
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            return _context.Set<T>();
         }
 
-        public async Task<T> Update(T entity)
+        public T Update(T entity)
         {
+            _context.ChangeTracker.Clear();
             _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return entity;
         }
 
-        public async Task<bool> IsExisted(Expression<Func<T, bool>> expression)
+        public bool IsExisted(Expression<Func<T, bool>> expression)
         {
-            return await _context.Set<T>().AnyAsync(expression);
+            return _context.Set<T>().Any(expression);
         }
     }
 }

@@ -15,29 +15,47 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource MainVM}"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-
         Name="mainWindow"
 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:uc="clr-namespace:WpfApp.Views.Common">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
+            <i:InvokeCommandAction Command="{Binding SignInWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
+            <i:InvokeCommandAction Command="{Binding MouseIdleCommand }" CommandParameter="start"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding MouseIdleCommand}" CommandParameter="stop"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="33*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <uc:ControlBarUC />
         </Grid>
-        <Grid Grid.Row="1">
-            <Button Command="{Binding CategoryWindowCommand}" Content="Open"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <StackPanel>
+                <Expander
+                    HorizontalAlignment="Center"
+                    Header="Dashboard">
+                    <Button
+                        Content="Category"
+                        Foreground="Black"
+                        Command="{Binding CategoryWindowCommand}"
+                        CommandParameter="{Binding ElementName=mainWindow}"
+                        Style="{StaticResource MaterialDesignFlatDarkButton}"
+                        ToolTip="Category" />
+                </Expander>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using _2DataAccess.Interfaces;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using WpfApp.ViewModels.Auth;
 
-namespace WpfApp.Windows
+namespace WpfApp.Views.Auth
 {
     /// <summary>
     /// Interaction logic for SignInWindow.xaml
     /// </summary>
     public partial class SignInWindow : Window
     {
-        public SignInWindow()
+        public SignInWindow(IUserRepository userRepository)
         {
             InitializeComponent();
+            this.DataContext = new SignInViewModel(userRepository);
         }
     }
 }

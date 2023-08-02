@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace WpfApp.ViewModels
+namespace WpfApp.ViewModels.Commons
 {
     public class ControlBarViewModel : BaseViewModel
     {
@@ -40,9 +35,9 @@ namespace WpfApp.ViewModels
                 var window = element as Window;
                 if (window != null)
                 {
-                    if(window.WindowState != WindowState.Minimized)
+                    if (window.WindowState != WindowState.Minimized)
                         window.WindowState = WindowState.Minimized;
-                    else 
+                    else
                         window.WindowState = WindowState.Maximized;
                 }
             });

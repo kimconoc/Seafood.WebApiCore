@@ -1,65 +1,93 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
-using WpfApp.Views.Category;
-using WpfApp.Windows;
+using WpfApp.ViewModels.Auth;
+using WpfApp.ViewModels.Categories;
+using WpfApp.ViewModels.Commons;
+using WpfApp.Views.Categories;
+using WpfApp.Views.Auth;
+using WpfApp.Configurations;
 
 namespace WpfApp.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
-        public bool IsLoaded = false;
-        public ICommand LoadedWindowCommand { get; set; }
+        public bool IsLoaded = true;
+        public ICommand SignInWindowCommand { get; set; }
         public ICommand CategoryWindowCommand { get; set; }
+        public ICommand MouseIdleCommand { get; set; }
 
-        public MainViewModel()
+        private readonly SignInWindow _signInWindow;
+        private readonly CategoryWindow _categoryWindow;
+
+        public MainViewModel(IAbstractFactory<SignInWindow> signInWindow, IAbstractFactory<CategoryWindow> categoryWindow)
         {
-            LoadedWindowCommand = new RelayCommand<Window>(p =>
+            _signInWindow = signInWindow.Create();
+            _categoryWindow = categoryWindow.Create();
+
+            SignInWindowCommand = new RelayCommand<Window>(p =>
             {
                 return true;
             }, p =>
             {
-                IsLoaded = true;
-
+                IsLoaded = false;
                 if (p == null)
                 {
                     return;
                 }
-
-                p.Hide();
-                SignInWindow signInWindow = new SignInWindow();
-                signInWindow.ShowDialog();
-
-                var signInVM = signInWindow.DataContext as SignInViewModel;
+                p.Hide();                
+                _signInWindow.ShowDialog();
+                var signInVM = _signInWindow.DataContext as SignInViewModel;
 
                 if (signInVM == null)
                 {
                     return;
                 }
 
-                if (!signInVM.IsSignIn)
-                {
+                if (signInVM.IsLoaded)
+                {                    
                     p.Close();
                 }
                 else
                 {
+                    IsLoaded = true;
                     p.Show();
                 }
             });
 
-            CategoryWindowCommand = new RelayCommand<object>(p =>
+            CategoryWindowCommand = new RelayCommand<Window>(p =>
             {
                 return true;
             }, p =>
             {
-                CategoryWindow window = new CategoryWindow();
-                window.ShowDialog();
+                IsLoaded = false;
+                p.Hide();
+
+                _categoryWindow.ShowDialog();
+
+                var categoryVM = _categoryWindow.DataContext as CategoryViewModel;
+                if (categoryVM == null)
+                {
+                    return;
+                }
+
+                if (categoryVM.IsLoaded)
+                {                    
+                    p.Close();
+                }
+                else
+                {
+                    IsLoaded = true;
+                    p.Show();
+                }
             });
+
+            MouseIdleCommand = new RelayCommand<string>(p =>
+            {
+                return true;
+            }, p =>
+            {
+                TimerManager.Instance.Execute(p);
+            });            
         }
     }
 }

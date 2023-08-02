@@ -15,9 +15,9 @@ namespace _2DataAccess.Repositories
     {
         public UserRepository(SeafoodContext context) : base(context) { }
 
-        public async Task<User> GetByUserName(string username)
+        public User GetByUserName(string username)
         {
-            return await _context.Users.FirstOrDefaultAsync(_ => _.Username == username);
+            return _context.Users.SingleOrDefault(u => u.Username == username);
         }
     }
 }

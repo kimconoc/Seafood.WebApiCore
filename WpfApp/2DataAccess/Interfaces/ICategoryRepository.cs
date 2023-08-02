@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace _2DataAccess.Interfaces
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface ICategoryRepository : IGenericRepository<Category>
     {
-        User GetByUserName(string username);
     }
 }

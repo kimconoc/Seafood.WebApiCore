@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Seafood.WebApi.props" />
-</Project>

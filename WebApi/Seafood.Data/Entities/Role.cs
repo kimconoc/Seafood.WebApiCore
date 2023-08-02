@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Seafood.Data.Entities
 {
-    internal class Role
+    public enum Role
     {
+        admin,user
     }
 }

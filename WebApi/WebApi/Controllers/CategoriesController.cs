@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Seafood.Application.Repositories.Categories;
 using Seafood.Data.Dtos;
+using Seafood.Data.Entities;
 
 namespace Seafood.WebApi.Controllers
 {
@@ -24,7 +25,7 @@ namespace Seafood.WebApi.Controllers
             return Ok(categories);
         }
 
-        [Authorize]
+        [WebApi.configurations.Authorize(Role.admin)]
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CategoryRequest request)
         {
@@ -38,7 +39,7 @@ namespace Seafood.WebApi.Controllers
             }
         }
 
-        [Authorize]
+        [WebApi.configurations.Authorize(Role.admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromForm] CategoryRequest request)
         {
@@ -54,7 +55,7 @@ namespace Seafood.WebApi.Controllers
             }
         }
 
-        [Authorize]
+        [WebApi.configurations.Authorize(Role.admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

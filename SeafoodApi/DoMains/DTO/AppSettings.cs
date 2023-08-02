@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DoMains.DTO
 {
-    internal class AppSettings
+    public class AppSettings
     {
+        public string SecretKey { get; set; }
+
     }
 }

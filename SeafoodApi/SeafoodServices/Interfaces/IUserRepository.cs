@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DoMains.DTO;
+using DoMains.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace SeafoodServices.Interfaces
 {
-    internal interface IUser
+    public interface IUserRepository:IGenericRepository<User>
     {
+       
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DoMains.DTO
 {
-    internal class Role
+    public enum Role
     {
+        Admin,User
     }
 }

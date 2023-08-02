@@ -15,6 +15,7 @@ namespace SeafoodServices.Mappers
         public UserMapper() {
             CreateMap<User, SignIn>().ReverseMap();
             CreateMap<User, SignUp>().ReverseMap();
+            CreateMap<User,UserDTO>().ReverseMap();
         }
     }
 }

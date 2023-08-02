@@ -24,6 +24,8 @@ namespace SeafoodServices.ServiceExtension
             services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddScoped<ICategoryRepository,CategoryRepository>();
             services.AddAutoMapper(typeof(CategoryMapper).Assembly);
+            services.AddAutoMapper(typeof(UserMapper).Assembly);
+
             return services;
         }
     }

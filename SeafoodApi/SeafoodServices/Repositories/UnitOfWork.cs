@@ -15,11 +15,14 @@ namespace SeafoodServices.Repositories
     {
         private readonly SeafoodContext _context;
         public ICategoryRepository Categorys { get; set; }
+        public IUserRepository Users { get; set; }
         public UnitOfWork(SeafoodContext context,
-                            ICategoryRepository categoryRepository)
+                            ICategoryRepository categoryRepository,
+                            IUserRepository userRepositories)
         {
             _context = context;
             Categorys = categoryRepository;
+            Users = userRepositories;
         }
         public void Dispose()
         {

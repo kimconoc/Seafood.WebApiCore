@@ -1,4 +1,5 @@
 using DoMains.AppDbContext;
+using DoMains.DTO;
 using DoMains.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,8 @@ namespace SeafoodApi
             //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddDIServices(builder.Configuration);
             builder.Services.AddScoped<ICategoryService, CategoryService>();
-           
+            builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();

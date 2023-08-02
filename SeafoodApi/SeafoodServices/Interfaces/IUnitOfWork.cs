@@ -9,6 +9,7 @@ namespace SeafoodServices.Interfaces
     public interface IUnitOfWork:IDisposable
     {
         ICategoryRepository Categorys { get; set; }
+        IUserRepository Users { get; set; }
         int Save();
     }
 }

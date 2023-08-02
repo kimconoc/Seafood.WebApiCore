@@ -62,6 +62,7 @@ namespace Seafood.Application.Repositories.Categories
         {
             var query = _context.Categories.Select(cat => new CategoryVM
             {
+                Id = cat.Id,
                 Name = cat.Name,
                 Description = cat.Description,
                 Note = cat.Note,

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DoMains.AppDbContext;
 using DoMains.DTO;
 using DoMains.Models;
 using SeafoodServices.Interfaces;
@@ -7,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BCrypt.Net;
+using Azure.Core;
 
 namespace SeafoodServices.Services
 {
@@ -14,10 +17,13 @@ namespace SeafoodServices.Services
     {
         public IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public UserService(IMapper mapper, IUnitOfWork unitOfWork)
+        private readonly SeafoodContext _context;
+        
+        public UserService(IMapper mapper, IUnitOfWork unitOfWork,SeafoodContext context)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _context = context;
         }
         public Task<bool> CreateUser(UserDTO userDTO)
         {
@@ -57,9 +63,14 @@ namespace SeafoodServices.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserDTO> SignIn(SignIn signin)
+        public async Task<UserDTO> SignIn(SignIn signin)
         {
-            throw new NotImplementedException();
+            var user = _context.Users.SingleOrDefault(x => x.Username == signin.Username);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(signin.PasswordHash, user.PasswordHash))
+            {
+                throw new Exception("Username or password is incorrect");
+            }
+            return _mapper.Map<UserDTO>(user); 
         }
 
         public Task<UserDTO> SignUp(SignUp signUp)

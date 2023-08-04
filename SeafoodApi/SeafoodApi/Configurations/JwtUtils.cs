@@ -5,22 +5,18 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
+using SeafoodApi.Interfaces;
 namespace SeafoodApi.Configurations
 {
-    public interface IJwtUtils
-    {
-        public string GenerateJwtToken(User user);
-        public int? ValidateJwtToken(string token);
-    }
-    public class JwtUtils
+   
+    public class JwtUtils:IJwtUtils
     {
         private readonly AppSettings _appSettings;
         public JwtUtils(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
         }
-        public string GenerateJwtToken(User user)
+        public string GenerateJwtToken(UserDTO user)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();

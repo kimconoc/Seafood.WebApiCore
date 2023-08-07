@@ -18,20 +18,20 @@ namespace SeafoodApi.Configurations
         }
         public string GenerateJwtToken(UserDTO user)
         {
-            // generate token that is valid for 7 days
+            // generate token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_appSettings.SecretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
 
-        public int? ValidateJwtToken(string token)
+        public Guid? ValidateJwtToken(string token)
         {
             if (token == null)
                 return null;
@@ -51,7 +51,7 @@ namespace SeafoodApi.Configurations
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 // return user id from JWT token if validation successful
                 return userId;

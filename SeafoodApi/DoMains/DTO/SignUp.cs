@@ -10,7 +10,7 @@ namespace DoMains.DTO
     {
         public string Username { get; set; } = null!;
 
-        public string PasswordHash { get; set; } = null!;
+        public string Password { get; set; } = null!;
 
         public string? DisplayName { get; set; }
 
@@ -25,5 +25,9 @@ namespace DoMains.DTO
         public string? Email { get; set; }
 
         public string? Company { get; set; }
+         public DateTime CreatedAt { get; set; }
+        public string CreatedBy { get; set; } = null!;
+
+
     }
 }

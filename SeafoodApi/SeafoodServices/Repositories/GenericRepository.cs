@@ -31,6 +31,7 @@ namespace SeafoodServices.Repositories
         public async Task Add(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
+
         }
 
         public async Task<T> Delete(Guid id)
@@ -47,6 +48,6 @@ namespace SeafoodServices.Repositories
             return entityEntry.Entity;
         }
 
-        
+       
     }
 }

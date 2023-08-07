@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
 using Azure.Core;
+using Microsoft.VisualBasic;
 
 namespace SeafoodServices.Services
 {
@@ -62,25 +63,56 @@ namespace SeafoodServices.Services
         {
             throw new NotImplementedException();
         }
-
-        public async Task<UserDTO> SignIn(SignIn signin)
-        {
-            var user = _context.Users.SingleOrDefault(x => x.Username == signin.Username);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(signin.PasswordHash, user.PasswordHash))
-            {
-                throw new Exception("Username or password is incorrect");
-            }
-            return _mapper.Map<UserDTO>(user); 
-        }
-
-        public Task<UserDTO> SignUp(SignUp signUp)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<User> GetUserToContext(Guid id)
         {
             return await _unitOfWork.Users.GetById(id);
+        }
+
+        public Task<bool> CheckEmailSignUp(string email)
+        {
+            return _unitOfWork.Users.CheckEmailSignUp(email);
+        }
+        public async Task<UserDTO> SignIn(SignIn signin)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.Username == signin.Username);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(signin.Password, user.PasswordHash))
+            {
+                throw new Exception("Username or password is incorrect");
+            }
+            return _mapper.Map<UserDTO>(user);
+        }
+        public Task<bool> CheckUserNameSignUp(string userName)
+        {
+            return _unitOfWork.Users.CheckUserNameSignUp(userName);
+        }
+        public async Task<bool> SignUp(SignUp signUp)
+        {
+           if(await _unitOfWork.Users.CheckEmailSignUp(signUp.Email)|| await _unitOfWork.Users.CheckUserNameSignUp(signUp.Username))
+            {
+                throw new Exception("Email or UserName already exist");
+            }
+           var user = _mapper.Map<User>(signUp);
+            if(user!=null)
+            {
+                user.Id = Guid.NewGuid();
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(signUp.Password);
+                user.DisplayName = signUp.DisplayName;
+                user.Avarta = signUp.Avarta;
+                user.Birthday = signUp.Birthday;
+                user.Sex = signUp.Sex;
+                user.Mobile = signUp.Mobile;
+                user.Email = signUp.Email;
+                user.Company = signUp.Company;
+                user.CreatedAt = DateTime.UtcNow;
+                user.CreatedBy = "dev-local";
+                await _unitOfWork.Users.Add(user);
+                var result = _unitOfWork.Save();
+                if (result > 0)
+                    return true;
+                else return false;
+            }
+           return false;
+
         }
     }
 }

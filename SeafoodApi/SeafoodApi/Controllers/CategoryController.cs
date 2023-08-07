@@ -1,8 +1,11 @@
 ﻿using DoMains.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SeafoodApi.Configurations;
 using SeafoodServices.Interfaces;
 using SeafoodServices.Services;
+using AuthorizeAttribute = SeafoodApi.Configurations.AuthorizeAttribute;
 
 namespace SeafoodApi.Controllers
 {
@@ -37,6 +40,7 @@ namespace SeafoodApi.Controllers
             }
             else { return BadRequest(); }
         }
+        [Authorize(Role.Admin)]
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CategorysDTO categoryDTO)
         {
@@ -48,6 +52,7 @@ namespace SeafoodApi.Controllers
             else
             { return BadRequest(); }
         }
+        [Authorize(Role.Admin)]
         [HttpPut]
         public async Task<IActionResult> UpdateCategory(CategorysDTO categoryDTO)
         {
@@ -63,6 +68,7 @@ namespace SeafoodApi.Controllers
             return BadRequest();
 
         }
+        [Authorize(Role.Admin)]
         [HttpDelete]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {

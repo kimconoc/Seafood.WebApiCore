@@ -13,6 +13,7 @@ namespace SeafoodServices.Interfaces
         Task Add(T entity);
         Task<T> Delete(Guid id);
         Task<T> Update(T entity);
+       
 
     }
 }

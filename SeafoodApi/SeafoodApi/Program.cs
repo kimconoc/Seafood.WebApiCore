@@ -3,6 +3,9 @@ using DoMains.DTO;
 using DoMains.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SeafoodApi.Configurations;
+using SeafoodApi.Interfaces;
+using SeafoodApi.Middlewares;
 using SeafoodServices.Interfaces;
 using SeafoodServices.Mappers;
 using SeafoodServices.Repositories;
@@ -18,17 +21,13 @@ namespace SeafoodApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            //builder.Services.AddDbContext<SeafoodContext>(options =>
-            //{
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            //});
-            //builder.Services.AddScoped<IUnitOfWork, IUnitOfWork>();
-          
-            //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
             builder.Services.AddDIServices(builder.Configuration);
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-
+            builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddAuthorization();
             builder.Services.AddControllers();
@@ -44,7 +43,11 @@ namespace SeafoodApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+            app.UseMiddleware<JwtMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

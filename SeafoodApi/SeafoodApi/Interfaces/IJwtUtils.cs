@@ -6,6 +6,6 @@ namespace SeafoodApi.Interfaces
     public interface IJwtUtils
     {
         public string GenerateJwtToken(UserDTO user);
-        public int? ValidateJwtToken(string token);
+        public Guid? ValidateJwtToken(string token);
     }
 }

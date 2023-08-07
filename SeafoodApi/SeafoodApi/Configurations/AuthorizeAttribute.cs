@@ -7,6 +7,7 @@ using System.Data;
 
 namespace SeafoodApi.Configurations
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
         private readonly IList<Role> _roles;

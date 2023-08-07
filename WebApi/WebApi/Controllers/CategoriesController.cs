@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Seafood.Application.Repositories.Categories;
+using Seafood.Application.Services.Categories;
 using Seafood.Data.Dtos;
 
 namespace Seafood.WebApi.Controllers
@@ -11,14 +11,14 @@ namespace Seafood.WebApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
-        public CategoriesController(ICategoryRepository categoryRepository)
+        private readonly ICategoryService _categoryRepository;
+        public CategoriesController(ICategoryService categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var categories = await _categoryRepository.GetAll();
@@ -26,7 +26,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([FromForm] CategoryRequest request)
         {
             try
@@ -40,7 +40,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(Guid id, [FromForm] CategoryRequest request)
         {
 
@@ -56,7 +56,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seafood.Application.Repositories.Categories
+namespace Seafood.Application.Services.Categories
 {
-    public interface ICategoryRepository
+    public interface ICategoryService
     {
         Task<List<CategoryVM>> GetAll();
         Task<CategoryVM> Create(CategoryRequest request);

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Seafood.Data.Dtos;
 using Seafood.Data.EF;
 using Seafood.Data.Entities;
@@ -8,34 +9,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seafood.Application.Repositories.Categories
+namespace Seafood.Application.Services.Categories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryService : ICategoryService
     {
         private readonly SeafoodDbcontext _context;
+        private readonly IMapper _mapper;
 
-        public CategoryRepository(SeafoodDbcontext context)
+        public CategoryService(SeafoodDbcontext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<CategoryVM> Create(CategoryRequest request)
         {
-            var category = new Category
-            {
-                Name = request.Name,
-                Description = request.Description,
-                Note = request.Note,
-                Code = request.Code,
-                Icon = request.Icon,
-                IsDeleted = false,
-                DeletedAt = DateTime.Now,
-                DeletedBy = "admin",
-                CreatedAt = DateTime.Now,
-                CreatedBy = "admin",
-                UpdatedAt = DateTime.Now,
-                UpdatedBy = "admin",
-            };
+            Category category = new Category();
+            category = _mapper.Map<Category>(request);
+            category.IsDeleted = false;
+            category.DeletedAt = DateTime.Now;
+            category.DeletedBy = "admin";
+            category.CreatedAt = DateTime.Now;
+            category.CreatedBy = "admin";
+            category.UpdatedAt = DateTime.Now;
+            category.UpdatedBy = "admin";
             _context.Categories.Add(category);
             _context.SaveChanges();
 
@@ -53,14 +50,14 @@ namespace Seafood.Application.Repositories.Categories
         {
             var category = await _context.Categories.SingleOrDefaultAsync(x => x.Id == id);
             if (category == null) throw new Exception($"Không thể tìm thấy!");
-            _context.Categories.Remove(category);
+            category.IsDeleted = true;
             _context.SaveChanges();
             return true;
         }
 
         public async Task<List<CategoryVM>> GetAll()
         {
-            var query = _context.Categories.Select(cat => new CategoryVM
+            var query = _context.Categories.Where(c => c.IsDeleted == false).Select(cat => new CategoryVM
             {
                 Id = cat.Id,
                 Name = cat.Name,
@@ -79,18 +76,18 @@ namespace Seafood.Application.Repositories.Categories
             var category = await _context.Categories.SingleAsync(x => x.Id == id);
             if (category == null) throw new Exception($"Không thể tìm thấy!");
 
-                category.Name = request.Name;
-                category.Description = request.Description;
-                category.Note = request.Note;
-                category.Code = request.Code;
-                category.Icon = request.Icon;
-                category.IsDeleted = false;
-                category.DeletedAt = DateTime.Now;
-                category.DeletedBy = "admin";
-                category.CreatedAt = DateTime.Now;
-                category.CreatedBy = "admin";
-                category.UpdatedAt = DateTime.Now;
-                category.UpdatedBy = "admin";
+            category.Name = request.Name;
+            category.Description = request.Description;
+            category.Note = request.Note;
+            category.Code = request.Code;
+            category.Icon = request.Icon;
+            category.IsDeleted = false;
+            category.DeletedAt = DateTime.Now;
+            category.DeletedBy = "admin";
+            category.CreatedAt = DateTime.Now;
+            category.CreatedBy = "admin";
+            category.UpdatedAt = DateTime.Now;
+            category.UpdatedBy = "admin";
             _context.SaveChanges();
             return true;
 

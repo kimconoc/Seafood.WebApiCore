@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seafood.Application.Repositories.Users
+namespace Seafood.Application.Services.Users
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         Task<string> Authenticate(LoginRequest request);
     }

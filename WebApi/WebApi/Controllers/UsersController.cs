@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Seafood.Application.Repositories.Users;
+using Seafood.Application.Services.Users;
 using Seafood.Data.Dtos;
 
 namespace Seafood.WebApi.Controllers
@@ -10,9 +9,9 @@ namespace Seafood.WebApi.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userRepository;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserService userRepository)
         {
             _userRepository = userRepository;
         }

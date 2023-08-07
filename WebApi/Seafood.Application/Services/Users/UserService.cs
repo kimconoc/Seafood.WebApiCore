@@ -12,15 +12,15 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seafood.Application.Repositories.Users
+namespace Seafood.Application.Services.Users
 {
-    public class UserRepository : IUserRepository
+    public class UserService : IUserService
     {
         private readonly SeafoodDbcontext _context;
         private readonly IConfiguration _config;
 
-        public UserRepository(SeafoodDbcontext context, IConfiguration configuration) 
-        { 
+        public UserService(SeafoodDbcontext context, IConfiguration configuration)
+        {
             _context = context;
             _config = configuration;
 
@@ -28,7 +28,7 @@ namespace Seafood.Application.Repositories.Users
         public async Task<string> Authenticate(LoginRequest request)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == request.UserName && u.PasswordHash == request.Password);
-            if (user == null) 
+            if (user == null)
             {
                 throw new Exception("Tài khoản hoặc mật khẩu không đúng");
             }
@@ -50,7 +50,7 @@ namespace Seafood.Application.Repositories.Users
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
 
-            return  new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

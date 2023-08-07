@@ -11,10 +11,11 @@ namespace WpfApp.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public bool IsLoaded = true;
-        public ICommand SignInWindowCommand { get; set; }
-        public ICommand CategoryWindowCommand { get; set; }
-        public ICommand MouseIdleCommand { get; set; }
+        public bool IsOpen = true;
+        public ICommand SignInCommand { get; set; }
+        public ICommand OpenCategoryCommand { get; set; }
+        public ICommand StartTimerCommand { get; set; }
+        public ICommand StopTimerCommand { get; set; }
 
         private readonly SignInWindow _signInWindow;
         private readonly CategoryWindow _categoryWindow;
@@ -24,12 +25,12 @@ namespace WpfApp.ViewModels
             _signInWindow = signInWindow.Create();
             _categoryWindow = categoryWindow.Create();
 
-            SignInWindowCommand = new RelayCommand<Window>(p =>
+            SignInCommand = new RelayCommand<Window>(p =>
             {
                 return true;
             }, p =>
             {
-                IsLoaded = false;
+                IsOpen = false;
                 if (p == null)
                 {
                     return;
@@ -43,51 +44,60 @@ namespace WpfApp.ViewModels
                     return;
                 }
 
-                if (signInVM.IsLoaded)
+                if (signInVM.IsOpen)
                 {                    
                     p.Close();
                 }
                 else
                 {
-                    IsLoaded = true;
+                    IsOpen = true;
                     p.Show();
                 }
             });
 
-            CategoryWindowCommand = new RelayCommand<Window>(p =>
+            OpenCategoryCommand = new RelayCommand<Window>(p =>
             {
                 return true;
             }, p =>
             {
-                IsLoaded = false;
-                p.Hide();
+                IsOpen = false;
+                p.Close();
 
                 _categoryWindow.ShowDialog();
-
+                
                 var categoryVM = _categoryWindow.DataContext as CategoryViewModel;
                 if (categoryVM == null)
                 {
                     return;
                 }
 
-                if (categoryVM.IsLoaded)
+                if (categoryVM.IsOpen)
                 {                    
                     p.Close();
                 }
                 else
                 {
-                    IsLoaded = true;
-                    p.Show();
+                    IsOpen = true;
+                    p.ShowDialog();
                 }
             });
 
-            MouseIdleCommand = new RelayCommand<string>(p =>
+            StartTimerCommand = new RelayCommand<Window>(p =>
             {
                 return true;
             }, p =>
             {
-                TimerManager.Instance.Execute(p);
-            });            
+                TimerManager.SignInWindow = signInWindow;
+                TimerManager.Instance.OnStart(p);
+            });
+
+            StopTimerCommand = new RelayCommand<Window>(p =>
+            {
+                return true;
+            }, p =>
+            {                
+                TimerManager.Instance.OnStop();
+            });
         }
     }
 }

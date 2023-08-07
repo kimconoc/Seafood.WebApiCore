@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="500"
+        Title="MainWindow" Height="700" Width="1200"
 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -23,26 +23,27 @@
         xmlns:uc="clr-namespace:WpfApp.Views.Common">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding SignInWindowCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
-            <i:InvokeCommandAction Command="{Binding MouseIdleCommand }" CommandParameter="start"/>
+            <i:InvokeCommandAction Command="{Binding SignInCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
+            <i:InvokeCommandAction Command="{Binding StartTimerCommand }" CommandParameter="{Binding ElementName=mainWindow}"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="Unloaded">
-            <i:InvokeCommandAction Command="{Binding MouseIdleCommand}" CommandParameter="stop"/>
+            <i:InvokeCommandAction Command="{Binding StopTimerCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="17*"/>
-            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition />
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <uc:ControlBarUC />
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
             <StackPanel>
                 <Expander
                     HorizontalAlignment="Center"
@@ -50,7 +51,7 @@
                     <Button
                         Content="Category"
                         Foreground="Black"
-                        Command="{Binding CategoryWindowCommand}"
+                        Command="{Binding OpenCategoryCommand}"
                         CommandParameter="{Binding ElementName=mainWindow}"
                         Style="{StaticResource MaterialDesignFlatDarkButton}"
                         ToolTip="Category" />

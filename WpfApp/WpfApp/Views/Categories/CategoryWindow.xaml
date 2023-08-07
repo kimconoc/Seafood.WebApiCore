@@ -22,6 +22,14 @@
 
         xmlns:uc="clr-namespace:WpfApp.Views.Common"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding StartTimerCommand }" CommandParameter="{Binding ElementName=categoryWindow}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding StopTimerCommand}" CommandParameter="{Binding ElementName=categoryWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>

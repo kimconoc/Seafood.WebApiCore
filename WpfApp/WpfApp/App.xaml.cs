@@ -21,8 +21,7 @@ namespace WpfApp
         {
             AppHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
             {                
-                services.AddSingleton<MainWindow>();
-
+                services.AddFormFactory<MainWindow>();
                 services.AddFormFactory<SignInWindow>();
                 services.AddFormFactory<CategoryWindow>();
 

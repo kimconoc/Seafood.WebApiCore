@@ -29,7 +29,7 @@ namespace WpfApp.ViewModels.Categories
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommnad { get; set; }
 
-        public bool IsLoaded = true;
+        public bool IsOpen = true;
         public bool IsSuccessed = false;
 
         public NewCategoryViewModel()
@@ -44,9 +44,9 @@ namespace WpfApp.ViewModels.Categories
                 var resultYesNo = MessageBox.Show("Bạn có chắc chắn muốn tạo mới category này không?" + Name, "", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (resultYesNo == MessageBoxResult.Yes)
                 {                                        
-                    IsLoaded = false;
+                    IsOpen = false;
                     IsSuccessed = true;
-                    p.Close();                                       
+                    p.Hide();                                       
                 }
                 else
                 {
@@ -59,8 +59,8 @@ namespace WpfApp.ViewModels.Categories
                 return true;
             }, p =>
             {
-                IsLoaded = false;
-                p.Close();
+                IsOpen = false;
+                p.Hide();
             });
         }
     }

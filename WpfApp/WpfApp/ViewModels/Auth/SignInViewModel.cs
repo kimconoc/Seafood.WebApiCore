@@ -2,13 +2,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WpfApp.Configurations;
 using WpfApp.ViewModels.Commons;
 
 namespace WpfApp.ViewModels.Auth
 {
     public class SignInViewModel : BaseViewModel
     {
-        public bool IsLoaded = true;
+        public bool IsOpen = true;
 
         private string _userName;
         public string UserName { get => _userName; set { _userName = value; OnPropertyChanged(); } }
@@ -24,7 +25,6 @@ namespace WpfApp.ViewModels.Auth
             _userName = "string";
             _password = "string123";
             
-
             SignInCommand = new RelayCommand<Window>(p =>
             {
                 return true;
@@ -46,7 +46,7 @@ namespace WpfApp.ViewModels.Auth
             if (Password == null)
             {
                 Password = _password;
-            }
+            }            
 
             var user = userRepository.GetByUserName(UserName);
             if (user == null || !BCrypt.Net.BCrypt.Verify(Password, user.PasswordHash))
@@ -55,8 +55,8 @@ namespace WpfApp.ViewModels.Auth
             }
             else
             {
-                IsLoaded = false;
-                window.Close();                
+                IsOpen = false;
+                window.Close();                                   
             }
         }
     }

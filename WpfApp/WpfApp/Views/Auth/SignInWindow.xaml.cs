@@ -1,5 +1,6 @@
 ﻿using _2DataAccess.Interfaces;
 using System.Windows;
+using WpfApp.Configurations;
 using WpfApp.ViewModels.Auth;
 
 namespace WpfApp.Views.Auth

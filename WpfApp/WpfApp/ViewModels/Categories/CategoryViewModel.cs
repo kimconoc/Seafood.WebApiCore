@@ -2,11 +2,11 @@
 using Model.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
+using WpfApp.Configurations;
 using WpfApp.ViewModels.Commons;
+using WpfApp.Views.Auth;
 using WpfApp.Views.Categories;
 
 namespace WpfApp.ViewModels.Categories
@@ -19,18 +19,24 @@ namespace WpfApp.ViewModels.Categories
         private Category _selectedItem;
         public Category SelectedItem { get => _selectedItem; set { _selectedItem = value; OnPropertyChanged(); } }
 
-        public bool IsLoaded = true;
+        public bool IsOpen = true;
         public ICommand NewCategoryWindowCommand { get; set; }
         public ICommand UpdateCategoryPopupCommand { get; set; }
         public ICommand DeletePopupCommand { get; set; }
+        public ICommand StartTimerCommand { get; set; }
+        public ICommand StopTimerCommand { get; set; }
 
-        public CategoryViewModel(ICategoryRepository categoryRepository)
+        private readonly SignInWindow _signInWindow;
+
+        public CategoryViewModel(ICategoryRepository categoryRepository, IAbstractFactory<SignInWindow> signInWindow)
         {
+            _signInWindow = signInWindow.Create();
+
             _categories = new ObservableCollection<Category>(categoryRepository.GetAll());
 
             NewCategoryWindowCommand = new RelayCommand<Window>(p => { return true; }, p =>
             {
-                IsLoaded = false;
+                IsOpen = false;
                 p.Hide();
 
                 var newCategoryWindow = new NewCategoryWindow();
@@ -54,20 +60,20 @@ namespace WpfApp.ViewModels.Categories
                     Categories.Add(newCategory);
                 }
 
-                if (newCategoryVM.IsLoaded)
+                if (newCategoryVM.IsOpen)
                 {
-                    p.Close();                    
+                    p.Hide();                    
                 }
                 else
                 {
-                    IsLoaded = true;                    
-                    p.Show();
+                    IsOpen = true;                    
+                    p.ShowDialog();
                 }
             });
 
             UpdateCategoryPopupCommand = new RelayCommand<object>(p => { return true; }, p =>
             {
-                IsLoaded = false;  
+                IsOpen = false;  
                 
                 var category = p as Category;
 
@@ -113,6 +119,23 @@ namespace WpfApp.ViewModels.Categories
                 {
                     return;
                 }
+            });
+
+            StartTimerCommand = new RelayCommand<Window>(p =>
+            {
+                return true;
+            }, p =>
+            {
+                TimerManager.SignInWindow = signInWindow;
+                TimerManager.Instance.OnStart(p);
+            });
+
+            StopTimerCommand = new RelayCommand<Window>(p =>
+            {
+                return true;
+            }, p =>
+            {
+                TimerManager.Instance.OnStop();
             });
         }
     }

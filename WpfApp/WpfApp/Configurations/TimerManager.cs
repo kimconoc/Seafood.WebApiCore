@@ -1,53 +1,60 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Threading;
+using WpfApp.ViewModels.Auth;
+using WpfApp.Views.Auth;
 
 namespace WpfApp.Configurations
 {
-    public class TimerManager : ICommand
+    public class TimerManager
     {
         private static TimerManager? _instance;
         public static TimerManager Instance => _instance ??= new TimerManager();
 
-        private DispatcherTimer _timer;
+        private readonly DispatcherTimer _timer;
 
-        public event EventHandler? CanExecuteChanged;
+        private readonly int _interval = 3;
+
+        public static IAbstractFactory<SignInWindow> SignInWindow;
 
         private TimerManager()
         {
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(5);
-        }
-
-        public bool CanExecute(object? parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object? parameter)
-        {
-            if (parameter.ToString() == "start")
+            _timer = new DispatcherTimer
             {
-                _timer.Tick += (s, e) =>
-                {
-                    Application.Current.MainWindow.Close();
-                    //SignInWindow signInWindow = new SignInWindow();
-                    //signInWindow.ShowDialog();
-                };
+                Interval = TimeSpan.FromSeconds(_interval)
+            };
+        }
 
-                Application.Current.MainWindow.MouseMove += (s, e) =>
-                {
-                    _timer.Stop();
-                    _timer.Start();
-                };
+        public void OnStart(Window currentWindow)
+        {            
+            _timer.Tick += (s, e) =>
+            {
+                currentWindow.Hide();
 
-                _timer.Start();
-            }
-            else if (parameter.ToString() == "stop")
+                SignInWindow signInWindow = SignInWindow.Create();
+                signInWindow.ShowDialog();
+
+                var signInVM = signInWindow.DataContext as SignInViewModel;
+
+                if (!signInVM.IsOpen)
+                {
+                    signInWindow.Close();
+                    currentWindow.ShowDialog();
+                }
+            };
+
+            currentWindow.MouseMove += (s, e) =>
             {
                 _timer.Stop();
-            }
+                _timer.Start();
+            };            
+
+            _timer.Start();                       
+        }
+
+        public void OnStop()
+        {            
+            _timer.Stop();
         }
     }
 }

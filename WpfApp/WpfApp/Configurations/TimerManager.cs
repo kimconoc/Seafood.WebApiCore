@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 using WpfApp.ViewModels.Auth;
@@ -25,34 +27,40 @@ namespace WpfApp.Configurations
             };
         }
 
-        public void OnStart(Window currentWindow)
+        public void Start(Window currentWindow)
         {            
             _timer.Tick += (s, e) =>
             {
-                currentWindow.Hide();
-
-                SignInWindow signInWindow = SignInWindow.Create();
-                signInWindow.ShowDialog();
-
-                var signInVM = signInWindow.DataContext as SignInViewModel;
-
-                if (!signInVM.IsOpen)
+                if (!currentWindow.IsVisible)
                 {
-                    signInWindow.Close();
-                    currentWindow.ShowDialog();
+                    _timer.Stop();                    
                 }
+                else
+                {
+                    currentWindow.Hide();
+
+                    SignInWindow signInWindow = SignInWindow.Create();
+                    signInWindow.ShowDialog();
+
+                    var signInVM = signInWindow.DataContext as SignInViewModel;
+
+                    if (signInVM.IsOpen == false)
+                    {
+                        currentWindow.ShowDialog();
+                    }
+                }                
             };
 
             currentWindow.MouseMove += (s, e) =>
             {
                 _timer.Stop();
                 _timer.Start();
-            };            
+            };
 
             _timer.Start();                       
         }
 
-        public void OnStop()
+        public void Stop()
         {            
             _timer.Stop();
         }

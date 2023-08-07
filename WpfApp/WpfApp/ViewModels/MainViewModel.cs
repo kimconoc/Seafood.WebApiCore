@@ -35,7 +35,8 @@ namespace WpfApp.ViewModels
                 {
                     return;
                 }
-                p.Hide();                
+                p.Hide();   
+                
                 _signInWindow.ShowDialog();
                 var signInVM = _signInWindow.DataContext as SignInViewModel;
 
@@ -61,7 +62,7 @@ namespace WpfApp.ViewModels
             }, p =>
             {
                 IsOpen = false;
-                p.Close();
+                p.Hide();
 
                 _categoryWindow.ShowDialog();
                 
@@ -78,17 +79,17 @@ namespace WpfApp.ViewModels
                 else
                 {
                     IsOpen = true;
-                    p.ShowDialog();
+                    p.Show();
                 }
             });
 
             StartTimerCommand = new RelayCommand<Window>(p =>
             {
-                return true;
+                return p.IsEnabled == true;
             }, p =>
             {
                 TimerManager.SignInWindow = signInWindow;
-                TimerManager.Instance.OnStart(p);
+                TimerManager.Instance.Start(p);
             });
 
             StopTimerCommand = new RelayCommand<Window>(p =>
@@ -96,7 +97,7 @@ namespace WpfApp.ViewModels
                 return true;
             }, p =>
             {                
-                TimerManager.Instance.OnStop();
+                TimerManager.Instance.Stop();
             });
         }
     }

@@ -26,12 +26,8 @@ namespace WpfApp.ViewModels.Categories
         public ICommand StartTimerCommand { get; set; }
         public ICommand StopTimerCommand { get; set; }
 
-        private readonly SignInWindow _signInWindow;
-
         public CategoryViewModel(ICategoryRepository categoryRepository, IAbstractFactory<SignInWindow> signInWindow)
-        {
-            _signInWindow = signInWindow.Create();
-
+        {            
             _categories = new ObservableCollection<Category>(categoryRepository.GetAll());
 
             NewCategoryWindowCommand = new RelayCommand<Window>(p => { return true; }, p =>
@@ -127,7 +123,7 @@ namespace WpfApp.ViewModels.Categories
             }, p =>
             {
                 TimerManager.SignInWindow = signInWindow;
-                TimerManager.Instance.OnStart(p);
+                TimerManager.Instance.Start(p);                
             });
 
             StopTimerCommand = new RelayCommand<Window>(p =>
@@ -135,7 +131,7 @@ namespace WpfApp.ViewModels.Categories
                 return true;
             }, p =>
             {
-                TimerManager.Instance.OnStop();
+                TimerManager.Instance.Stop();
             });
         }
     }

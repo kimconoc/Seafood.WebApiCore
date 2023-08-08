@@ -15,7 +15,7 @@ namespace WpfApp.Configurations
 
         private readonly DispatcherTimer _timer;
 
-        private readonly int _interval = 3;
+        private readonly int _interval = 10;
 
         public static IAbstractFactory<SignInWindow> SignInWindow;
 
@@ -55,7 +55,7 @@ namespace WpfApp.Configurations
             {
                 _timer.Stop();
                 _timer.Start();
-            };
+            };            
 
             _timer.Start();                       
         }

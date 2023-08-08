@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls;
+using WpfApp.Configurations;
 using WpfApp.ViewModels.Commons;
+using WpfApp.Views.Auth;
 
 namespace WpfApp.Views.Common
 {

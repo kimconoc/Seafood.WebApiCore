@@ -5,7 +5,9 @@ using System;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Xml.Linq;
+using WpfApp.Configurations;
 using WpfApp.ViewModels.Categories;
+using WpfApp.Views.Auth;
 
 namespace WpfApp.Views.Categories
 {
@@ -15,12 +17,10 @@ namespace WpfApp.Views.Categories
     /// 
     public partial class UpdateCategoryWindow : Window
     {        
-        private readonly Category _category;
         public UpdateCategoryWindow(Category category)
         {            
             InitializeComponent();
-            _category = category;
-            this.DataContext = new UpdateCategoryViewModel(_category);
+            this.DataContext = new UpdateCategoryViewModel(category);
         }
     }
 }

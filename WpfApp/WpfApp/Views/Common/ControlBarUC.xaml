@@ -21,10 +21,10 @@
         <materialDesign:ColorZone
             Background="Black"
             Foreground="White"
+            Height="35"
             Mode="Custom">
             <DockPanel LastChildFill="False">
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />-->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" DockPanel.Dock="Left">
                     <Grid Margin="10 0 -5 0">
                         <materialDesign:PackIcon VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Kind="MicrosoftWindows"/>
                     </Grid>
@@ -32,44 +32,6 @@
                         Margin="16,0"
                         VerticalAlignment="Center"
                         Text="LOGO" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <StackPanel.Resources>
-                        <Style TargetType="materialDesign:PackIcon">
-                            <Setter Property="Foreground" Value="White" />
-                        </Style>
-                        <Style TargetType="Button">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="Gray" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Resources>
-                    <Button
-                        Command="{Binding MinimizeWindowCommand}"
-                        CommandParameter="{Binding ElementName=controlBarUC}"
-                        ToolBar.OverflowMode="AsNeeded"
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        ToolTip="Minimize">
-                        <materialDesign:PackIcon Kind="WindowMinimize"/>
-                    </Button>
-                    <Button
-                        Command="{Binding MaximizeWindowCommand}"
-                        CommandParameter="{Binding ElementName=controlBarUC}"
-                        ToolBar.OverflowMode="AsNeeded"
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        ToolTip="Maximize">
-                        <materialDesign:PackIcon Kind="WindowRestore" />
-                    </Button>
-                    <Button
-                        Command="{Binding CloseWindowCommand}"
-                        CommandParameter="{Binding ElementName=controlBarUC}"
-                        ToolBar.OverflowMode="AsNeeded"
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        ToolTip="Close">
-                        <materialDesign:PackIcon Kind="WindowClose" />
-                    </Button>
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>

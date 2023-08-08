@@ -26,6 +26,8 @@ namespace WpfApp.ViewModels.Categories
         public ICommand StartTimerCommand { get; set; }
         public ICommand StopTimerCommand { get; set; }
 
+        private CategoryWindow _categoryWindow;
+
         public CategoryViewModel(ICategoryRepository categoryRepository, IAbstractFactory<SignInWindow> signInWindow)
         {            
             _categories = new ObservableCollection<Category>(categoryRepository.GetAll());
@@ -58,7 +60,7 @@ namespace WpfApp.ViewModels.Categories
 
                 if (newCategoryVM.IsOpen)
                 {
-                    p.Hide();                    
+                    p.Close();                    
                 }
                 else
                 {
@@ -68,17 +70,28 @@ namespace WpfApp.ViewModels.Categories
             });
 
             UpdateCategoryPopupCommand = new RelayCommand<object>(p => { return true; }, p =>
-            {
-                IsOpen = false;  
+            {                
+                IsOpen = false;
                 
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window is CategoryWindow)
+                    {
+                        _categoryWindow = (CategoryWindow)window;
+                    }
+                }
+                _categoryWindow.Hide();
+
                 var category = p as Category;
 
                 var updateCategoryWindow = new UpdateCategoryWindow(category);
-                updateCategoryWindow.ShowDialog();
+                updateCategoryWindow.ShowDialog();                
 
                 var updateCategoryVM = updateCategoryWindow.DataContext as UpdateCategoryViewModel;                
                 if (updateCategoryVM.IsSuccessed)
                 {
+                    IsOpen = true;
+
                     var newCategory = new Category
                     {
                         Id = Guid.Parse(updateCategoryVM.Id),
@@ -98,6 +111,13 @@ namespace WpfApp.ViewModels.Categories
                     category.Code = newCategory.Code;
                     category.Icon = newCategory.Icon;
                     category.IsDeleted = newCategory.IsDeleted;
+
+                    _categoryWindow.ShowDialog();
+                }
+                else if (!updateCategoryVM.IsOpen)
+                {
+                    IsOpen = true;
+                    _categoryWindow.ShowDialog();
                 }
             });
 
@@ -123,7 +143,7 @@ namespace WpfApp.ViewModels.Categories
             }, p =>
             {
                 TimerManager.SignInWindow = signInWindow;
-                TimerManager.Instance.Start(p);                
+                TimerManager.Instance.Start(p);
             });
 
             StopTimerCommand = new RelayCommand<Window>(p =>

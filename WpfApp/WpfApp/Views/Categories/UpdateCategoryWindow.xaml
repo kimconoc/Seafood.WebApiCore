@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Views.Categories"
         mc:Ignorable="d"
-        Title="UpdateCategoryWindow" Height="650" Width="800"
+        Title="" Height="650" Width="800"
 
         Name="updateCategoryWindow"
 
@@ -20,12 +20,16 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-
-        WindowStyle="None"
+        WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseWindowCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="23*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">

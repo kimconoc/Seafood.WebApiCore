@@ -1,4 +1,5 @@
 ﻿using _2DataAccess.Interfaces;
+using System.Security.Permissions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,6 +11,7 @@ namespace WpfApp.ViewModels.Auth
     public class SignInViewModel : BaseViewModel
     {
         public bool IsOpen = true;
+        public bool IsSignIn = false;
 
         private string _userName;
         public string UserName { get => _userName; set { _userName = value; OnPropertyChanged(); } }
@@ -19,6 +21,7 @@ namespace WpfApp.ViewModels.Auth
 
         public ICommand SignInCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
+        public ICommand CloseWindowCommand { get; set; }
 
         public SignInViewModel(IUserRepository userRepository)
         {
@@ -33,6 +36,11 @@ namespace WpfApp.ViewModels.Auth
             PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, p => 
             { 
                 Password = p.Password;                
+            });
+
+            CloseWindowCommand = new RelayCommand<Window>(p => { return true; }, p =>
+            {
+                IsOpen = false;
             });
         }
 
@@ -54,7 +62,8 @@ namespace WpfApp.ViewModels.Auth
                 MessageBox.Show("Username or Password is incorrect!");
             }
             else
-            {
+            {                
+                IsSignIn = true;
                 IsOpen = false;
                 window.Close();                                   
             }

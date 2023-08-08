@@ -1,13 +1,8 @@
-﻿using _2DataAccess.Interfaces;
-using Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Model.Models;
 using System.Windows;
 using System.Windows.Input;
 using WpfApp.ViewModels.Commons;
+using WpfApp.Views.Categories;
 
 namespace WpfApp.ViewModels.Categories
 {
@@ -36,6 +31,7 @@ namespace WpfApp.ViewModels.Categories
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommnad { get; set; }
+        public ICommand CloseWindowCommand { get; set; }
 
         public bool IsOpen = true;
         public bool IsSuccessed = false;
@@ -48,7 +44,7 @@ namespace WpfApp.ViewModels.Categories
             _note = category.Note;
             _code = category.Code;
             _icon = category.Icon;
-            _isDeleted = category.IsDeleted;
+            _isDeleted = category.IsDeleted;            
 
             SaveCommand = new RelayCommand<Window>(p =>
             {
@@ -62,7 +58,8 @@ namespace WpfApp.ViewModels.Categories
                 {                                        
                     IsOpen = false;
                     IsSuccessed = true;
-                    p.Hide();                    
+                    p.Close();                    
+                    
                 }
                 else if (resultYesNo == MessageBoxResult.No) 
                 {
@@ -75,8 +72,14 @@ namespace WpfApp.ViewModels.Categories
                 return true;
             }, p =>
             {
+                IsOpen = false;                
+                p.Close();
+                
+            });
+
+            CloseWindowCommand = new RelayCommand<object>(p => { return true; }, p =>
+            {
                 IsOpen = false;
-                p.Hide();
             });
         }
     }

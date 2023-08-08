@@ -16,22 +16,19 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 
-        WindowStyle="None"
+        WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterScreen"
 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:uc="clr-namespace:WpfApp.Views.Common"
 
         Name="signInWindow">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=signInWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <uc:ControlBarUC />
-        </Grid>
-        <Grid MaxHeight="{Binding Height}" Grid.Row="1">
+        <Grid MaxHeight="{Binding Height}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />

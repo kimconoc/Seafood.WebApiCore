@@ -12,19 +12,18 @@ namespace WpfApp.ViewModels
     public class MainViewModel : BaseViewModel
     {
         public bool IsOpen = true;
+        public bool IsSignIn = false;
+
         public ICommand SignInCommand { get; set; }
         public ICommand OpenCategoryCommand { get; set; }
         public ICommand StartTimerCommand { get; set; }
         public ICommand StopTimerCommand { get; set; }
 
-        private readonly SignInWindow _signInWindow;
-        private readonly CategoryWindow _categoryWindow;
+        private SignInWindow _signInWindow;
+        private CategoryWindow _categoryWindow;
 
         public MainViewModel(IAbstractFactory<SignInWindow> signInWindow, IAbstractFactory<CategoryWindow> categoryWindow)
-        {
-            _signInWindow = signInWindow.Create();
-            _categoryWindow = categoryWindow.Create();
-
+        {                       
             SignInCommand = new RelayCommand<Window>(p =>
             {
                 return true;
@@ -35,9 +34,11 @@ namespace WpfApp.ViewModels
                 {
                     return;
                 }
-                p.Hide();   
+                p.Hide();
                 
+                _signInWindow = signInWindow.Create();
                 _signInWindow.ShowDialog();
+
                 var signInVM = _signInWindow.DataContext as SignInViewModel;
 
                 if (signInVM == null)
@@ -51,6 +52,7 @@ namespace WpfApp.ViewModels
                 }
                 else
                 {
+                    IsSignIn = signInVM.IsSignIn;
                     IsOpen = true;
                     p.Show();
                 }
@@ -63,29 +65,54 @@ namespace WpfApp.ViewModels
             {
                 IsOpen = false;
                 p.Hide();
-
-                _categoryWindow.ShowDialog();
                 
-                var categoryVM = _categoryWindow.DataContext as CategoryViewModel;
-                if (categoryVM == null)
-                {
-                    return;
-                }
+                _categoryWindow = categoryWindow.Create();
 
-                if (categoryVM.IsOpen)
-                {                    
-                    p.Close();
-                }
-                else
+                if (IsSignIn == false)
                 {
-                    IsOpen = true;
-                    p.Show();
+                    p.Close();
+                    _signInWindow = signInWindow.Create();
+                    
+                    var signInVM = _signInWindow.DataContext as SignInViewModel;                    
+                    _signInWindow.ShowDialog();
+
+                    if (!signInVM.IsOpen && signInVM.IsSignIn)
+                    {
+                        IsSignIn = signInVM.IsSignIn;                        
+                        _signInWindow.Close();
+                    } 
+                    else if (!signInVM.IsOpen)
+                    {
+                        _categoryWindow.Close();
+                        _signInWindow.Close();
+                    }
                 }
+                
+                if (IsSignIn == true)
+                {
+                    _categoryWindow.ShowDialog();
+
+                    var categoryVM = _categoryWindow.DataContext as CategoryViewModel;
+                    if (categoryVM == null)
+                    {
+                        return;
+                    }
+
+                    if (categoryVM.IsOpen)
+                    {
+                        p.Close();
+                    }
+                    else
+                    {
+                        IsOpen = true;
+                        p.Show();
+                    }
+                }                                                                                     
             });
 
             StartTimerCommand = new RelayCommand<Window>(p =>
             {
-                return p.IsEnabled == true;
+                return true;
             }, p =>
             {
                 TimerManager.SignInWindow = signInWindow;
@@ -96,9 +123,9 @@ namespace WpfApp.ViewModels
             {
                 return true;
             }, p =>
-            {                
+            {
                 TimerManager.Instance.Stop();
-            });
+            });            
         }
     }
 }

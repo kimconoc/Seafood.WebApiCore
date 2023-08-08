@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp.Views.Categories"
         mc:Ignorable="d"
-        Title="CategoryWindow" Height="700" Width="1200"
+        Title="" Height="700" Width="1200"
 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,7 +15,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowStyle="None"
+        WindowStyle="ThreeDBorderWindow"
         WindowStartupLocation="CenterScreen"
 
         Name="categoryWindow"
@@ -32,7 +32,7 @@
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -42,7 +42,6 @@
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="Grid">
-                        <!--<Setter Property="Margin" Value="0 15 0 0"/>-->
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>

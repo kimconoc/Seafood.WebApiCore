@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Seafood.Data.Dtos;
 using Seafood.Data.EF;
+using Seafood.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,32 +26,50 @@ namespace Seafood.Application.Services.Users
             _config = configuration;
 
         }
-        public async Task<string> Authenticate(LoginRequest request)
+
+        public async Task<User> Authenticate(LoginRequest request)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == request.UserName && u.PasswordHash == request.Password);
-            if (user == null)
+            var user = _context.Users.FirstOrDefault(u => u.Username == request.UserName);
+
+            if (user == null || user.PasswordHash != request.Password)
             {
-                throw new Exception("Tài khoản hoặc mật khẩu không đúng");
+                throw new Exception("Username or password is incorrect");
             }
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            return user;
+        }
+
+        //public async Task<string> Authenticate(LoginRequest request)
+        //{
+        //    var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == request.UserName && u.PasswordHash == request.Password);
+        //    if (user == null)
+        //    {
+        //        throw new Exception("Tài khoản hoặc mật khẩu không đúng");
+        //    }
+
+        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Roles)
-            };
+        //    var claims = new[]
+        //    {
+        //        new Claim(ClaimTypes.Email,user.Email),
+        //        new Claim(ClaimTypes.Name, user.Username),
+        //        new Claim(ClaimTypes.Role, user.Roles)
+        //    };
 
-            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(3),
-                signingCredentials: creds);
+        //    var token = new JwtSecurityToken(_config["Tokens:Issuer"],
+        //        _config["Tokens:Issuer"],
+        //        claims,
+        //        expires: DateTime.Now.AddHours(3),
+        //        signingCredentials: creds);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+        //    return new JwtSecurityTokenHandler().WriteToken(token);
+        //}
+
+        public Task<User> GetUserById(Guid id)
+        {
+            return _context.Users.SingleOrDefaultAsync(user => user.Id == id);
         }
     }
 }

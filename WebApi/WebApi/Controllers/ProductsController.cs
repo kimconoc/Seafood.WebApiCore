@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Seafood.Application.Services.Adresses;
 using Seafood.Application.Services.Common;
 using Seafood.Data.Dtos;
+using Seafood.Data.Entities;
 using System.Data;
 
 namespace Seafood.WebApi.Controllers
@@ -21,7 +22,6 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var categories = await _productService.GetAll();
@@ -29,7 +29,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
         public async Task<IActionResult> Create([FromForm] ProductRequest request)
         {
             try
@@ -43,7 +43,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "admin")]
+        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
         public async Task<IActionResult> Update(Guid id, [FromForm] ProductRequest request)
         {
 
@@ -59,7 +59,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "admin")]
+        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

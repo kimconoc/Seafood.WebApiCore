@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Seafood.Application.Services.Users;
 using Seafood.Data.Dtos;
+using Seafood.WebApi.Interfaces;
 
 namespace Seafood.WebApi.Controllers
 {
@@ -9,27 +10,22 @@ namespace Seafood.WebApi.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserService _userRepository;
+        private readonly IUserService _userService;
+        private readonly IJwtUtil _jwtUtil;
 
-        public UsersController(IUserService userRepository)
+        public UsersController(IUserService userService, IJwtUtil jwtUtil)
         {
-            _userRepository = userRepository;
+            _userService = userService;
+            _jwtUtil = jwtUtil;
         }
 
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _userRepository.Authenticate(request);
-
-            if (string.IsNullOrEmpty(result))
-            {
-                return BadRequest(result);
-            }
-            return Ok(result);
+            var response = await _userService.Authenticate(request);
+            var jwtToken = _jwtUtil.GenerateJwtToken(response.Id);
+            return Ok(new { token = jwtToken, response });
         }
     }
 }

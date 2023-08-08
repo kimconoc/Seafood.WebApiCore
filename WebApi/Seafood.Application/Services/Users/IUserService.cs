@@ -1,4 +1,5 @@
 ﻿using Seafood.Data.Dtos;
+using Seafood.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Seafood.Application.Services.Users
 {
     public interface IUserService
     {
-        Task<string> Authenticate(LoginRequest request);
+        Task<User> Authenticate(LoginRequest request);
+        Task<User> GetUserById(Guid id);
     }
 }

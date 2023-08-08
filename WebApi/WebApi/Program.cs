@@ -11,6 +11,9 @@ using Seafood.Application.Services.Users;
 using Seafood.Data.Dtos;
 using Seafood.Data.EF;
 using Seafood.Data.Entities;
+using Seafood.WebApi.Configurations;
+using Seafood.WebApi.Interfaces;
+using Seafood.WebApi.Middlewares;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,27 +24,27 @@ string issuer = builder.Configuration.GetValue<string>("Tokens:Issuer");
 string signingKey = builder.Configuration.GetValue<string>("Tokens:Key");
 byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
 
-builder.Services.AddAuthentication(opt =>
-{
-    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidIssuer = issuer,
-        ValidateAudience = true,
-        ValidAudience = issuer,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ClockSkew = System.TimeSpan.Zero,
-        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
-    };
-});
+//builder.Services.AddAuthentication(opt =>
+//{
+//    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//})
+//.AddJwtBearer(options =>
+//{
+//    options.RequireHttpsMetadata = false;
+//    options.SaveToken = true;
+//    options.TokenValidationParameters = new TokenValidationParameters()
+//    {
+//        ValidateIssuer = true,
+//        ValidIssuer = issuer,
+//        ValidateAudience = true,
+//        ValidAudience = issuer,
+//        ValidateLifetime = true,
+//        ValidateIssuerSigningKey = true,
+//        ClockSkew = System.TimeSpan.Zero,
+//        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+//    };
+//});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -86,6 +89,7 @@ builder.Services.AddScoped<IGenericService<CategoryVM ,CategoryRequest>, Categor
 builder.Services.AddScoped<IGenericService<ProductVM ,ProductRequest>, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly); ;
+builder.Services.AddScoped<IJwtUtil, JwtUtil>();
 
 var app = builder.Build();
 
@@ -107,6 +111,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.UseMiddleware<JwtMiddleware>();
+
 app.UseStaticFiles();
 
 app.UseRouting();

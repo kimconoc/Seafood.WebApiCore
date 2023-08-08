@@ -43,7 +43,7 @@ namespace Model.AppDbContexts
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=V000306;Database=Seafood;User Id=sa;Password=Hoangapple@2k;MultipleActiveResultSets=true;TrustServerCertificate=True");
+                optionsBuilder.UseSqlServer("Server=10.1.43.52, 1433;Database=Seafood;User Id=sa;Password=Hoangapple@2k;MultipleActiveResultSets=true;TrustServerCertificate=True");
             }
         }
 

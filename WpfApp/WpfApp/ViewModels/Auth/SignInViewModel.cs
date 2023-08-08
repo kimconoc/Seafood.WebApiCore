@@ -40,7 +40,7 @@ namespace WpfApp.ViewModels.Auth
 
             CloseWindowCommand = new RelayCommand<Window>(p => { return true; }, p =>
             {
-                IsOpen = false;
+                IsOpen = false;                
             });
         }
 

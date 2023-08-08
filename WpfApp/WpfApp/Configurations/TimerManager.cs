@@ -15,7 +15,7 @@ namespace WpfApp.Configurations
 
         private readonly DispatcherTimer _timer;
 
-        private readonly int _interval = 10;
+        private readonly int _interval = 3;
 
         public static IAbstractFactory<SignInWindow> SignInWindow;
 
@@ -44,9 +44,14 @@ namespace WpfApp.Configurations
 
                     var signInVM = signInWindow.DataContext as SignInViewModel;
 
-                    if (signInVM.IsOpen == false)
-                    {
+                    if (signInVM.IsOpen == false && signInVM.IsSignIn)
+                    {                        
                         currentWindow.ShowDialog();
+                    }
+                    else if (signInVM.IsOpen == false)
+                    {
+                        signInWindow.Close();
+                        currentWindow.Close();
                     }
                 }                
             };

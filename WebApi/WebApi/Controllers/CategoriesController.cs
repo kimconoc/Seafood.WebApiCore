@@ -1,8 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Seafood.Application.Services.Categories;
+﻿using Microsoft.AspNetCore.Mvc;
 using Seafood.Application.Services.Common;
 using Seafood.Data.Dtos;
 using Seafood.Data.Entities;

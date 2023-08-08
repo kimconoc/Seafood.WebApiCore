@@ -1,12 +1,7 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Seafood.Application.Services.Adresses;
+﻿using Microsoft.AspNetCore.Mvc;
 using Seafood.Application.Services.Common;
 using Seafood.Data.Dtos;
 using Seafood.Data.Entities;
-using System.Data;
 
 namespace Seafood.WebApi.Controllers
 {

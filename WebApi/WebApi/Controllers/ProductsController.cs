@@ -2,37 +2,39 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Seafood.Application.Services.Categories;
+using Seafood.Application.Services.Adresses;
 using Seafood.Application.Services.Common;
 using Seafood.Data.Dtos;
+using System.Data;
 
 namespace Seafood.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class ProductsController : ControllerBase
     {
-        private readonly IGenericService<CategoryVM ,CategoryRequest> _categoryRepository;
-        public CategoriesController(IGenericService<CategoryVM, CategoryRequest> categoryRepository)
+        private readonly IGenericService<ProductVM ,ProductRequest> _productService;
+
+        public ProductsController(IGenericService<ProductVM, ProductRequest> productService)
         {
-            _categoryRepository = categoryRepository;
+            _productService = productService;
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetAll()
         {
-            var categories = await _categoryRepository.GetAll();
+            var categories = await _productService.GetAll();
             return Ok(categories);
         }
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Create([FromForm] CategoryRequest request)
+        public async Task<IActionResult> Create([FromForm] ProductRequest request)
         {
             try
             {
-                return Ok(_categoryRepository.Create(request));
+                return Ok(_productService.Create(request));
             }
             catch
             {
@@ -42,12 +44,12 @@ namespace Seafood.WebApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Update(Guid id, [FromForm] CategoryRequest request)
+        public async Task<IActionResult> Update(Guid id, [FromForm] ProductRequest request)
         {
 
             try
             {
-                await _categoryRepository.Update(id, request);
+                await _productService.Update(id, request);
                 return NoContent();
             }
             catch
@@ -62,7 +64,7 @@ namespace Seafood.WebApi.Controllers
         {
             try
             {
-                await _categoryRepository.Delete(id);
+                await _productService.Delete(id);
                 return Ok();
             }
             catch

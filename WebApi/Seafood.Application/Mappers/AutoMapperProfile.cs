@@ -14,6 +14,7 @@ namespace Seafood.Application.Mappers
         public AutoMapperProfile() 
         { 
             CreateMap<Category, CategoryRequest>().ReverseMap();
+            CreateMap<Product, ProductRequest>().ReverseMap();
         }
     }
 }

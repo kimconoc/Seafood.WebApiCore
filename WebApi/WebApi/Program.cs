@@ -4,8 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Seafood.Application.Mappers;
+using Seafood.Application.Services.Adresses;
 using Seafood.Application.Services.Categories;
+using Seafood.Application.Services.Common;
 using Seafood.Application.Services.Users;
+using Seafood.Data.Dtos;
 using Seafood.Data.EF;
 using Seafood.Data.Entities;
 using Swashbuckle.AspNetCore.Filters;
@@ -79,7 +82,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<SeafoodDbcontext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("seafoodDb")));
 
-builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IGenericService<CategoryVM ,CategoryRequest>, CategoryService>();
+builder.Services.AddScoped<IGenericService<ProductVM ,ProductRequest>, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly); ;
 

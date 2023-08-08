@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Seafood.Application.Services.Common;
 using Seafood.Data.Dtos;
 using Seafood.Data.EF;
 using Seafood.Data.Entities;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Seafood.Application.Services.Categories
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : IGenericService<CategoryVM, CategoryRequest>
     {
         private readonly SeafoodDbcontext _context;
         private readonly IMapper _mapper;
@@ -73,7 +74,7 @@ namespace Seafood.Application.Services.Categories
 
         public async Task<bool> Update(Guid id, CategoryRequest request)
         {
-            var category = await _context.Categories.SingleAsync(x => x.Id == id);
+            var category = await _context.Categories.SingleOrDefaultAsync(x => x.Id == id);
             if (category == null) throw new Exception($"Không thể tìm thấy!");
 
             category.Name = request.Name;
@@ -81,13 +82,8 @@ namespace Seafood.Application.Services.Categories
             category.Note = request.Note;
             category.Code = request.Code;
             category.Icon = request.Icon;
-            category.IsDeleted = false;
-            category.DeletedAt = DateTime.Now;
-            category.DeletedBy = "admin";
-            category.CreatedAt = DateTime.Now;
-            category.CreatedBy = "admin";
-            category.UpdatedAt = DateTime.Now;
-            category.UpdatedBy = "admin";
+
+            _context.Update(category);
             _context.SaveChanges();
             return true;
 

@@ -30,7 +30,7 @@ namespace CategoriesApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("signup")]
         public async Task<IActionResult> SignUp(SignUpRequest request)
         {
             var response = await _userService.SignUp(request);

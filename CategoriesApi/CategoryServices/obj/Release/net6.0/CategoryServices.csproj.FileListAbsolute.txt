@@ -1,0 +1,15 @@
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\bin\Release\net6.0\CategoryServices.deps.json
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\bin\Release\net6.0\CategoryServices.dll
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\bin\Release\net6.0\CategoryServices.pdb
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\bin\Release\net6.0\Domains.dll
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\bin\Release\net6.0\Domains.pdb
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.csproj.AssemblyReference.cache
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.GeneratedMSBuildEditorConfig.editorconfig
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.AssemblyInfoInputs.cache
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.AssemblyInfo.cs
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.csproj.CoreCompileInputs.cache
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.csproj.CopyComplete
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.dll
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\refint\CategoryServices.dll
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\CategoryServices.pdb
+D:\Seafood.WebApiCore\CategoriesApi\CategoryServices\obj\Release\net6.0\ref\CategoryServices.dll

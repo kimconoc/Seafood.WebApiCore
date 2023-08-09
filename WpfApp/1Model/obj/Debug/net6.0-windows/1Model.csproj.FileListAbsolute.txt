@@ -1,0 +1,14 @@
+D:\Seafood.WebApiCore\WpfApp\1Model\bin\Debug\net6.0-windows\1Model.deps.json
+D:\Seafood.WebApiCore\WpfApp\1Model\bin\Debug\net6.0-windows\1Model.runtimeconfig.json
+D:\Seafood.WebApiCore\WpfApp\1Model\bin\Debug\net6.0-windows\1Model.dll
+D:\Seafood.WebApiCore\WpfApp\1Model\bin\Debug\net6.0-windows\1Model.pdb
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.csproj.AssemblyReference.cache
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.GeneratedMSBuildEditorConfig.editorconfig
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.AssemblyInfoInputs.cache
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.AssemblyInfo.cs
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.csproj.CoreCompileInputs.cache
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.dll
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\refint\1Model.dll
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.pdb
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\1Model.genruntimeconfig.cache
+D:\Seafood.WebApiCore\WpfApp\1Model\obj\Debug\net6.0-windows\ref\1Model.dll

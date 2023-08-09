@@ -1,0 +1,1 @@
+D:\Seafood.WebApiCore\WpfApp\3WpfApp\obj\Debug\net6.0-windows\3WpfApp.csproj.AssemblyReference.cache

@@ -1,0 +1,15 @@
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\bin\Debug\net6.0-windows\2DataAccess.deps.json
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\bin\Debug\net6.0-windows\2DataAccess.dll
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\bin\Debug\net6.0-windows\2DataAccess.pdb
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\bin\Debug\net6.0-windows\1Model.dll
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\bin\Debug\net6.0-windows\1Model.pdb
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.csproj.AssemblyReference.cache
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.AssemblyInfoInputs.cache
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.AssemblyInfo.cs
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.csproj.CoreCompileInputs.cache
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.csproj.CopyComplete
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.dll
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\refint\2DataAccess.dll
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\2DataAccess.pdb
+D:\Seafood.WebApiCore\WpfApp\2DataAccess\obj\Debug\net6.0-windows\ref\2DataAccess.dll

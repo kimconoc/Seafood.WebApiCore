@@ -14,12 +14,12 @@ namespace Seafood.WebApi.Middlewares
 
         public async Task InvokeAsync(HttpContext context, IUserService userService, IJwtUtil jwtUtil)
         {
-            //var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split().Last();
-            //var id = jwtUtil.ValidateJwtToken(token);
-            //if (id != null)
-            //{
-            //    context.Items["User"] = userService.GetUserById(id.Value).Result;
-            //}
+            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split().Last();
+            var id = jwtUtil.ValidateJwtToken(token);
+            if (id != null)
+            {
+                context.Items["User"] = userService.GetUserById(id.Value).Result;
+            }
 
             //context.Response.WriteAsync("tmp");
             await _requestDelegate(context);

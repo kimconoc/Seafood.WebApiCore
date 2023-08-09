@@ -59,7 +59,7 @@ namespace Seafood.WebApi.Controllers
             try
             {
                 await _categoryRepository.Delete(id);
-                return Ok();
+                return Ok("Xóa thành công");
             }
             catch
             {

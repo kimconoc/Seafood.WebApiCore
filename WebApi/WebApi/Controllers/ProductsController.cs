@@ -60,7 +60,7 @@ namespace Seafood.WebApi.Controllers
             try
             {
                 await _productService.Delete(id);
-                return Ok();
+                return Ok("Xóa thành công");
             }
             catch
             {

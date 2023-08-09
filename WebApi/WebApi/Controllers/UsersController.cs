@@ -24,8 +24,20 @@ namespace Seafood.WebApi.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var response = await _userService.Authenticate(request);
-            var jwtToken = _jwtUtil.GenerateJwtToken(response.Id);
-            return Ok(new { token = jwtToken, response });
+            if (response != null)
+            {
+                var jwtToken = _jwtUtil.GenerateJwtToken(response.Id);
+                return Ok(new { token = jwtToken, response });
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> tmp()
+        {
+            return Ok("into ontroller");
         }
     }
 }

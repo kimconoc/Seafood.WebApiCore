@@ -33,7 +33,7 @@ namespace Seafood.Application.Services.Users
 
             if (user == null || user.PasswordHash != request.Password)
             {
-                throw new Exception("Username or password is incorrect");
+                return null;
             }
 
             return user;

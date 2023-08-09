@@ -3,10 +3,12 @@ using DoMains.DTO;
 using DoMains.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Seafood.Domain.Common.FileLog;
 using SeafoodApi.Configurations;
 using SeafoodApi.Interfaces;
 using SeafoodServices.Interfaces;
 using SeafoodServices.Services;
+using System.Reflection;
 
 namespace SeafoodApi.Controllers
 {
@@ -16,12 +18,10 @@ namespace SeafoodApi.Controllers
     {
         private IUserService _userService;
         private IJwtUtils _jwtUtils;
-        private IMapper _mapper;
-        public UserController(IUserService userService, IJwtUtils jwtUtils,IMapper mapper)
+        public UserController(IUserService userService, IJwtUtils jwtUtils)
         {
             _userService = userService;
             _jwtUtils = jwtUtils;
-            _mapper = mapper;
         }
         [Route("signIn")]
         [HttpPost]
@@ -43,13 +43,21 @@ namespace SeafoodApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var listUser = _userService.GetAllUser();
-           
-            if (listUser == null)
+            try
             {
-                return StatusCode(StatusCodes.Status204NoContent, "No user in database");
+                var listUser = _userService.GetAllUser();
+                if (listUser == null)
+                {
+                    return StatusCode(StatusCodes.Status204NoContent, "No user in database");
+                }
+                return StatusCode(StatusCodes.Status200OK, listUser);
             }
-            return StatusCode(StatusCodes.Status200OK, listUser);
+            catch (Exception ex)
+            {
+                FileHelper.GeneratorFileByDay(ex.ToString(), MethodBase.GetCurrentMethod().Name);
+                return StatusCode(StatusCodes.Status200OK, "log");
+            }
+            
         }
     }
 }

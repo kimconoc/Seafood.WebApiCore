@@ -18,11 +18,19 @@ using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+//Add Cors
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader()
+    .AllowAnyMethod());
+});
+
 // Add services to the container.
 
-string issuer = builder.Configuration.GetValue<string>("Tokens:Issuer");
-string signingKey = builder.Configuration.GetValue<string>("Tokens:Key");
-byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
+//string issuer = builder.Configuration.GetValue<string>("Tokens:Issuer");
+//string signingKey = builder.Configuration.GetValue<string>("Tokens:Key");
+//byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
 
 //builder.Services.AddAuthentication(opt =>
 //{

@@ -25,7 +25,7 @@ namespace Seafood.WebApi.Controllers
 
         [HttpPost]
         [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
-        public async Task<IActionResult> Create([FromForm] ProductRequest request)
+        public async Task<IActionResult> Create(ProductRequest request)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Seafood.WebApi.Controllers
 
         [HttpPut("{id}")]
         [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
-        public async Task<IActionResult> Update(Guid id, [FromForm] ProductRequest request)
+        public async Task<IActionResult> Update(Guid id, ProductRequest request)
         {
 
             try

@@ -1,0 +1,28 @@
+<br>
+<h3>Danh sách phân loại</h3>
+<table class="table table-striped">
+  <thead>
+    <th>Id</th>
+    <th>Tên</th>
+    <th>Mã</th>
+    <th>Ghi chú</th>
+    <th>Mô tả</th>
+  </thead>
+  <tbody>
+    <tr *ngFor='let cat of listCategories' (click)="onRowClick(cat)">
+      <td>{{cat.id}}</td>
+      <td>{{cat.name}}</td>
+      <td>{{cat.code}}</td>
+      <td>{{cat.note}}</td>
+      <td>{{cat.description}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="btn" style="display: flex; justify-content: right;">
+  <button style="margin: 0 5px" type="button" class="btn btn-outline-primary" (click)="openCategoryModal()" data-toggle="modal" data-target="#createCategory">Add</button>
+  <button [disabled]="!isEditEnabled" style="margin: 0 5px" type="button" class="btn btn-outline-success" (click)="openCategoryModal()" data-toggle="modal" data-target="#createCategory">Edit</button>
+  <button [disabled]="!isEditEnabled" style="margin: 0 5px" type="button" class="btn btn-outline-danger">Delete</button>
+</div>
+
+<app-create-or-edit-category *ngIf="showCreateCategoryModal" (modalSave)="reloadCategories()" [selectedItem]="selectedItem"></app-create-or-edit-category>

@@ -1,0 +1,22 @@
+<br>
+<h3>Danh sách sản phẩm</h3>
+<table class="table table-striped"> 
+  <thead>
+      <th>Tên</th>
+      <th>Ghi chú</th>
+      <th>Mô tả</th>
+      <th>Số lượng</th>
+      <th>Giá</th>
+  </thead>
+  <tbody>
+      <tr *ngFor='let prod of listProducts'>
+          <td>{{prod.name}}</td>
+          <td>{{prod.note}}</td>
+          <td>{{prod.description}}</td>
+          <td>{{prod.amount}}</td>
+          <td>{{prod.priceSale}}</td>
+      </tr>
+  </tbody>
+</table>
+
+

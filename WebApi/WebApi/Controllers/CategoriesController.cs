@@ -23,8 +23,8 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPost]
-        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
-        public async Task<IActionResult> Create([FromForm] CategoryRequest request)
+        //[Seafood.WebApi.Configurations.Authorize(Role.Admin)]
+        public async Task<IActionResult> Create(CategoryRequest request)
         {
             try
             {
@@ -37,8 +37,8 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
-        public async Task<IActionResult> Update(Guid id, [FromForm] CategoryRequest request)
+        //[Seafood.WebApi.Configurations.Authorize(Role.Admin)]
+        public async Task<IActionResult> Update(Guid id, CategoryRequest request)
         {
 
             try

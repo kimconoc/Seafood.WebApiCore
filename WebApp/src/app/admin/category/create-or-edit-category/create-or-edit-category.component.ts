@@ -20,7 +20,7 @@ export class CreateOrEditCategoryComponent implements OnInit {
   ngOnInit() {
   }
 
-  createCateogy() {
+  save() {
     var val = {
       name: this.selectedItem.name,
       code: this.selectedItem.code,
@@ -28,21 +28,14 @@ export class CreateOrEditCategoryComponent implements OnInit {
       description: this.selectedItem.description,
       icon: this.selectedItem.icon
     };
-    if (this.selectedItem == '') {
+    if (this.selectedItem.id == null) {
       this.service.createCategories(val).subscribe(res => {
-        alert(res.toString());
-        this.name = '';
-        this.code = '';
-        this.note = '';
-        this.description = '';
-        this.icon = '';
+        alert('Thêm mới thành công!');
         this.modalSave.emit(null);
       })
     }
     else {
-      this.http.put<any>("https://localhost:7195/api/"+'Categories/'+this.selectedItem.id, val).subscribe(res => {
-      })
+      this.http.put<any>("https://localhost:7195/api/"+'Categories/'+this.selectedItem.id, val).subscribe(res => {alert('Sửa thành công !')});
     }
   }
-
 }

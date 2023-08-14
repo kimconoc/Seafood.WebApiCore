@@ -1,0 +1,11 @@
+.hide-col {
+    display: none;
+}
+
+.selected {
+    background-color: #e3f2fd; /* Thay đổi màu nền theo ý muốn của bạn */
+  }
+
+  .previous {
+    background-color: initial; /* Đặt lại màu nền ban đầu */
+  }

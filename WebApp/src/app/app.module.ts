@@ -11,14 +11,16 @@ import { CreateOrEditProductComponent } from './admin/product/create-or-edit-pro
 import { SharedService } from './shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     CategoryComponent,
     ProductComponent,
     CreateOrEditCategoryComponent,
-    CreateOrEditProductComponent
-  ],
+    CreateOrEditProductComponent,
+      LoginComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

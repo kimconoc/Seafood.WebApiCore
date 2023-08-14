@@ -53,13 +53,13 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
+        //[Seafood.WebApi.Configurations.Authorize(Role.Admin)]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
                 await _categoryRepository.Delete(id);
-                return Ok("Xóa thành công");
+                return NoContent();
             }
             catch
             {

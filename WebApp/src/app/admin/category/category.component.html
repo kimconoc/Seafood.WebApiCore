@@ -1,16 +1,16 @@
 <br>
 <h3>Danh sách phân loại</h3>
-<table class="table table-striped">
+<table class="table" id="myTable">
   <thead>
-    <th>Id</th>
+    <th class="hide-col">Id</th>
     <th>Tên</th>
     <th>Mã</th>
     <th>Ghi chú</th>
     <th>Mô tả</th>
   </thead>
   <tbody>
-    <tr *ngFor='let cat of listCategories' (click)="onRowClick(cat)">
-      <td>{{cat.id}}</td>
+    <tr *ngFor='let cat of listCategories' (click)="onRowClick(cat)" [ngClass]="{'selected': cat === selectedItem}">
+      <td class="hide-col">{{cat.id}}</td>
       <td>{{cat.name}}</td>
       <td>{{cat.code}}</td>
       <td>{{cat.note}}</td>
@@ -20,9 +20,19 @@
 </table>
 
 <div class="btn" style="display: flex; justify-content: right;">
-  <button style="margin: 0 5px" type="button" class="btn btn-outline-primary" (click)="openCategoryModal()" data-toggle="modal" data-target="#createCategory">Add</button>
-  <button [disabled]="!isEditEnabled" style="margin: 0 5px" type="button" class="btn btn-outline-success" (click)="openCategoryModal()" data-toggle="modal" data-target="#createCategory">Edit</button>
-  <button [disabled]="!isEditEnabled" style="margin: 0 5px" type="button" class="btn btn-outline-danger">Delete</button>
+  <button style="margin: 0 5px" type="button" class="btn btn-outline-primary" (click)="createModal()"
+    data-toggle="modal" data-target="#createOrCategory">Add</button>
+  <button [disabled]="!isEditEnabled" style="margin: 0 5px" type="button" class="btn btn-outline-success"
+    (click)="editModal()" data-toggle="modal" data-target="#createOrCategory">Edit</button>
+  <button [disabled]="!isEditEnabled" style="margin: 0 5px" type="button" class="btn btn-outline-danger"
+    (click)="delete()">Delete</button>
 </div>
 
-<app-create-or-edit-category *ngIf="showCreateCategoryModal" (modalSave)="reloadCategories()" [selectedItem]="selectedItem"></app-create-or-edit-category>
+<app-create-or-edit-category *ngIf="showCreateCategoryModal" (modalSave)="reloadCategories()"
+  [selectedItem]="selectedItem"></app-create-or-edit-category>
+
+<script >
+  $('#myTable tbody tr').click(function () {
+    $(this).addClass('active').siblings().removeClass('active');
+  });
+</script>

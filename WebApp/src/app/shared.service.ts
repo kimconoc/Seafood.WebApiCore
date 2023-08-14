@@ -24,10 +24,14 @@ export class SharedService {
   }
 
   deleteCategories(val:any){
-    return this.http.delete<any>(this.APIUrl+'Categories'+val);
+    return this.http.delete<any>("https://localhost:7195/api/"+'Categories/'+val);
   }
 
   getAllProducts():Observable<any[]>{
     return this.http.get<any>(this.APIUrl+'Products');
+  }
+
+  login(user: any):Observable<string>{
+    return this.http.post("https://localhost:7195/api/"+'Users/login', user, {responseType: 'text'});
   }
 }

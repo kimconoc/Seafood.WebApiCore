@@ -1,45 +1,48 @@
 <!-- Modal -->
-<div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="createOrCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Thêm mới phân loại</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="!selectedItem.id">Thêm mới phân loại</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" *ngIf="selectedItem.id">Thay đổi phân loại</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-6">
-            <div class="tagName">Name: </div>
-            <input class="form-control" [(ngModel)]="selectedItem.name">
+          <div class="col-6 row">
+            <div class="tagName col-6">Tên: </div>
+            <input class="form-control col-6" [(ngModel)]="selectedItem.name">
           </div>
-          <div class="col-6">
-            <div class="tagName">Icon: </div>
-            <input class="form-control" [(ngModel)]="selectedItem.icon">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <div class="tagName">Code: </div>
-            <input class="form-control" [(ngModel)]="selectedItem.code">
-          </div>
-          <div class="col-6">
-            <div class="tagName">Note: </div>
-            <input class="form-control" [(ngModel)]="selectedItem.note">
+          <div class="col-6 row">
+            <div class="tagName col-6">Icon: </div>
+            <input class="form-control col-6" [(ngModel)]="selectedItem.icon">
           </div>
         </div>
+        <br>
         <div class="row">
-          <div class="col-12">
-            <div class="tagName">Description: </div>
-            <textarea class="form-control" [(ngModel)]="selectedItem.description"></textarea>
+          <div class="col-6 row">
+            <div class="tagName col-6">Mã: </div>
+            <input class="form-control col-6" [(ngModel)]="selectedItem.code">
+          </div>
+          <div class="col-6 row">
+            <div class="tagName col-6">Ghi chú: </div>
+            <input class="form-control col-6" [(ngModel)]="selectedItem.note">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-12 row">
+            <div class="tagName col-3">Mô tả: </div>
+            <textarea class="form-control col-9" [(ngModel)]="selectedItem.description"></textarea>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="createCateogy()" data-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="save()" data-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>

@@ -42,12 +42,12 @@ const SignInPage = () => {
       </button>
       <form onSubmit={handleSubmit(handleSignIn)}>
         <FromGroup>
-          <Label htmlFor="email">Email *</Label>
+        <Label htmlFor="name">Username *</Label>
           <Input
             control={control}
-            name="email"
-            placeholder="example@gmail.com"
-            error={errors.email?.message}
+            name="name"
+            placeholder="Jhon Doe"
+            error={errors.name?.message}
           ></Input>
         </FromGroup>
         <FromGroup>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared.service';
 @Component({
   selector: 'app-category',
@@ -6,7 +7,7 @@ import { SharedService } from 'src/app/shared.service';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  constructor(private service: SharedService) { }
+  constructor(private service: SharedService , private router: Router) { }
   showCreateCategoryModal = false;
   selectedItem: any;
   listCategories: any = [];
@@ -52,6 +53,10 @@ export class CategoryComponent implements OnInit {
         this.reloadCategories();
       });
     }
+  }
+
+  back() {
+    this.router.navigate(['login/home']);
   }
 }
 

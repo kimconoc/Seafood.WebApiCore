@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,29 +9,43 @@ export class SharedService {
 
   readonly APIUrl = "http://10.1.45.26:1234/api/";
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getAllCategories():Observable<any[]>{
-    return this.http.get<any>(this.APIUrl+'Categories');
+  getAuthorizedData(): HttpHeaders {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${jwt}` // Thêm JWT vào header Authorization
+      });
+      return headers;
+    }
+    return new HttpHeaders();
   }
 
-  createCategories(val:any){
-    return this.http.post(this.APIUrl+'Categories', val);
+  getAllCategories(): Observable<any[]> {
+    return this.http.get<any>(this.APIUrl + 'Categories');
   }
 
-  updateCategories(val:any){
-    return this.http.put<any>(this.APIUrl+'Categories', val);
+  createCategories(val: any) {
+    const headers = this.getAuthorizedData();
+    return this.http.post(this.APIUrl + 'Categories', val, { headers });
   }
 
-  deleteCategories(val:any){
-    return this.http.delete<any>("https://localhost:7195/api/"+'Categories/'+val);
+  updateCategories(val: any) {
+    const headers = this.getAuthorizedData();
+    return this.http.put<any>(this.APIUrl + 'Categories', val, { headers });
   }
 
-  getAllProducts():Observable<any[]>{
-    return this.http.get<any>(this.APIUrl+'Products');
+  deleteCategories(val: any) {
+    const headers = this.getAuthorizedData();
+    return this.http.delete<any>(this.APIUrl + 'Categories/' + val, { headers });
   }
 
-  login(user: any):Observable<string>{
-    return this.http.post("https://localhost:7195/api/"+'Users/login', user, {responseType: 'text'});
+  getAllProducts(): Observable<any[]> {
+    return this.http.get<any>(this.APIUrl + 'Products');
+  }
+
+  login(user: any) {
+    return this.http.post<any>(this.APIUrl + 'Users/login', user);
   }
 }

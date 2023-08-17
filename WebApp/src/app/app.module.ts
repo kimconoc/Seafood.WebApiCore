@@ -12,14 +12,16 @@ import { SharedService } from './shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
     CategoryComponent,
     ProductComponent,
     CreateOrEditCategoryComponent,
     CreateOrEditProductComponent,
-      LoginComponent
+      LoginComponent,
+      HomeComponent
    ],
   imports: [
     BrowserModule,

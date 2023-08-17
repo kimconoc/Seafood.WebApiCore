@@ -23,7 +23,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPost]
-        //[Seafood.WebApi.Configurations.Authorize(Role.Admin)]
+        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
         public async Task<IActionResult> Create(CategoryRequest request)
         {
             try
@@ -37,7 +37,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Seafood.WebApi.Configurations.Authorize(Role.Admin)]
+        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
         public async Task<IActionResult> Update(Guid id, CategoryRequest request)
         {
 
@@ -53,7 +53,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Seafood.WebApi.Configurations.Authorize(Role.Admin)]
+        [Seafood.WebApi.Configurations.Authorize(Role.Admin)]
         public async Task<IActionResult> Delete(Guid id)
         {
             try

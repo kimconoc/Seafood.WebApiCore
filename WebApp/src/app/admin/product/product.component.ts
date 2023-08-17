@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared.service';
 @Component({
   selector: 'app-product',
@@ -6,7 +7,7 @@ import { SharedService } from 'src/app/shared.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  constructor(private service:SharedService) { }
+  constructor(private service:SharedService, private router : Router) { }
 
   listProducts: any = [];
 
@@ -18,5 +19,9 @@ export class ProductComponent implements OnInit {
     this.service.getAllProducts().subscribe(data => {
       this.listProducts = data;
     })
+  }
+
+  back() {
+    this.router.navigate(['login/home']);
   }
 }

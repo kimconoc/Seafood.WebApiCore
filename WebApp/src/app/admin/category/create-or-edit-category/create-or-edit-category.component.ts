@@ -35,7 +35,8 @@ export class CreateOrEditCategoryComponent implements OnInit {
       })
     }
     else {
-      this.http.put<any>("https://localhost:7195/api/"+'Categories/'+this.selectedItem.id, val).subscribe(res => {alert('Sửa thành công !')});
+      this.http.put<any>("https://localhost:7195/api/"+'Categories/'+this.selectedItem.id, val).subscribe();
+      alert('Sửa thành công!');
     }
   }
 }

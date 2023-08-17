@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,8 +22,17 @@ export class SharedService {
     return new HttpHeaders();
   }
 
-  getAllCategories(): Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + 'Categories');
+  // getAllCategories(val: any): Observable<any> {
+  //   return this.http.get<any>("https://localhost:7195/api/" + 'Categories', val);
+  // }
+
+  getAllCategories(searchTerm: any): Observable<any> {
+    let params = new HttpParams();
+    if (searchTerm) {
+      params = params.set('searchTerm', searchTerm);
+    }
+  
+    return this.http.get<any>(this.APIUrl + 'Categories', { params });
   }
 
   createCategories(val: any) {
@@ -31,9 +40,9 @@ export class SharedService {
     return this.http.post(this.APIUrl + 'Categories', val, { headers });
   }
 
-  updateCategories(val: any) {
+  updateCategories(id : any, val: any) {
     const headers = this.getAuthorizedData();
-    return this.http.put<any>(this.APIUrl + 'Categories', val, { headers });
+    return this.http.put<any>(this.APIUrl + 'Categories/' + id, val, { headers });
   }
 
   deleteCategories(val: any) {

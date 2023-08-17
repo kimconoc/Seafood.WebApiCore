@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared.service';
+import { Subject } from 'rxjs';
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -12,17 +14,28 @@ export class CategoryComponent implements OnInit {
   selectedItem: any;
   listCategories: any = [];
   isEditEnabled = false;
+  searchTerm: string = "";
 
   ngOnInit(): void {
     this.reloadCategories();
   }
 
   reloadCategories() {
-    this.service.getAllCategories().subscribe(data => {
+    this.service.getAllCategories(this.searchTerm).subscribe(data => {
       this.listCategories = data;
+      console.log(data);
     })
   }
 
+  onSearch() {
+    this.reloadCategories();
+  }
+
+  reset() {
+    this.searchTerm = "";
+    this.reloadCategories();
+  } 
+  
   onRowClick(item: number) {
     this.isEditEnabled = true;
 

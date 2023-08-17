@@ -56,9 +56,29 @@ namespace Seafood.Application.Services.Categories
             return true;
         }
 
-        public async Task<List<CategoryVM>> GetAll()
+        public async Task<List<CategoryVM>> GetAll(string? searchTerm)
         {
-            var query = _context.Categories.Where(c => c.IsDeleted == false).Select(cat => new CategoryVM
+            var query = _context.Categories
+                .Where(e => searchTerm == null || e.Name.Contains(searchTerm))
+                .Where(c => c.IsDeleted == false).Select(cat => new CategoryVM
+            {
+                Id = cat.Id,
+                Name = cat.Name,
+                Description = cat.Description,
+                Note = cat.Note,
+                Code = cat.Code,
+                Icon = cat.Icon,
+            });
+
+            return await query.ToListAsync();
+
+        }
+
+        public async Task<List<CategoryVM>> Search(string? name)
+        {
+            var query = _context.Categories
+                .Where(e => name == null || e.Name.Contains(name))
+                .Where(c => c.IsDeleted == false).Select(cat => new CategoryVM
             {
                 Id = cat.Id,
                 Name = cat.Name,

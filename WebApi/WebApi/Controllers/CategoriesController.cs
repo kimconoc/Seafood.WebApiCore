@@ -16,11 +16,18 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string? searchTerm)
         {
-            var categories = await _categoryRepository.GetAll();
+            var categories = await _categoryRepository.GetAll(searchTerm);
             return Ok(categories);
         }
+
+        //[HttpPost("{name}")]
+        //public async Task<IActionResult> Search(string? name)
+        //{
+        //    var categories = await _categoryRepository.Search(name);
+        //    return Ok(categories);
+        //}
 
         [HttpPost]
         [Seafood.WebApi.Configurations.Authorize(Role.Admin)]

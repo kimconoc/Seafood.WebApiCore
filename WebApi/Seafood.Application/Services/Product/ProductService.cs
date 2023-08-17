@@ -57,7 +57,7 @@ namespace Seafood.Application.Services.Adresses
 
         }
 
-        public async Task<List<ProductVM>> GetAll()
+        public async Task<List<ProductVM>> GetAll(string? searchTerm)
         {
             var query = _context.Products.Where(p => p.IsDeleted == false).Select(prod => new ProductVM
             {
@@ -75,6 +75,11 @@ namespace Seafood.Application.Services.Adresses
 
             return await query.ToListAsync();
         }
+
+        //public Task<List<ProductVM>> Search(string? name)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public async Task<bool> Update(Guid id, ProductRequest request)
         {

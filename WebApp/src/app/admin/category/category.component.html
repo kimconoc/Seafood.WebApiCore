@@ -1,5 +1,11 @@
 <br>
 <h3>Danh sách phân loại</h3>
+<!-- <input type="text" (input)="onSearch()" [(ngModel)]="searchTerm" placeholder="Tìm kiếm theo tên " style="margin: 10px 0;"> -->
+<div style="display: flex;">
+  <input type="text" class="form-control" (input)="onSearch()" [(ngModel)]="searchTerm" aria-describedby="basic-addon1"
+    placeholder="Tìm kiếm theo tên ...">
+  <button class="btn btn-outline-secondary" type="button" id="button-addon1" (click)="reset()">Reset</button>
+</div>
 <table class="table" id="myTable">
   <thead>
     <th class="hide-col">Id</th>
@@ -34,7 +40,7 @@
 <app-create-or-edit-category *ngIf="showCreateCategoryModal" (modalSave)="reloadCategories()"
   [selectedItem]="selectedItem"></app-create-or-edit-category>
 
-<script >
+<script>
   $('#myTable tbody tr').click(function () {
     $(this).addClass('active').siblings().removeClass('active');
   });

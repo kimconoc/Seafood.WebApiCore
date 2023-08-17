@@ -30,9 +30,9 @@ const SignInPage = () => {
   });
   const { value: showPassword, handleToggleValue: handleTogglePassword } =
     useToggleValue();
-  const handleSignIn = async ({username,password}) => {
+  const handleSignIn = async (values) => {
     try {
-      await authService.login(username, password).then(
+      await authService.login(values.name, values.password).then(
         () => {
           navigate("/");
           window.location.reload();
@@ -59,7 +59,7 @@ const SignInPage = () => {
       </button>
       <form onSubmit={handleSubmit(handleSignIn)}>
         <FromGroup>
-        <Label htmlFor="name">Username *</Label>
+          <Label htmlFor="name">Username *</Label>
           <Input
             control={control}
             name="name"

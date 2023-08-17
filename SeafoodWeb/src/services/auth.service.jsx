@@ -1,15 +1,16 @@
 import axios from "axios";
 
-const API_URL = "http://seafoodapi.azurewebsites.net/api";
+const API_URL = "https://seafoodapi.azurewebsites.net/api";
 
-const signup = (email, password) => {
+const signup = (username, password) => {
   return axios
-    .post(API_URL + "/signup", {
-      email,
+    .post(API_URL + "/user/signup", {
+      username,
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
+      console.log(response);
+      if (response.data.token) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
 
@@ -19,15 +20,15 @@ const signup = (email, password) => {
 
 const login = (username, password) => {
   return axios
-    .post(API_URL + "user/signin", {
+    .post(`${API_URL}/user/signIn`, {
       username,
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
+      console.log(response);
+      if (response.data.token) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
-
       return response.data;
     });
 };

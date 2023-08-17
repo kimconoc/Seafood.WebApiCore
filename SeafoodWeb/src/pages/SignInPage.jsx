@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutAuthentication from "../layout/LayoutAuthentication";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,14 +9,17 @@ import Label from "../components/label/Label";
 import FromGroup from "../components/common/FromGroup";
 import Button from "../components/button/Button";
 import useToggleValue from "../hooks/useToggleValue";
+import authService from "../services/auth.service";
 const schema = yup.object({
-  email: yup.string().email("").required("This field is required"),
+  name: yup.string().required("This field is required"),
   password: yup
     .string()
     .required("This field is required")
     .min(8, "Password must be 8 character "),
 });
+
 const SignInPage = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -27,7 +30,21 @@ const SignInPage = () => {
   });
   const { value: showPassword, handleToggleValue: handleTogglePassword } =
     useToggleValue();
-  const handleSignIn = () => {};
+  const handleSignIn = async ({username,password}) => {
+    try {
+      await authService.login(username, password).then(
+        () => {
+          navigate("/");
+          window.location.reload();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <LayoutAuthentication heading="Welcome Back!">
       <p className="mb-6 text-xs font-normal text-center lg:text-sm text-text3 lg:mb-8">

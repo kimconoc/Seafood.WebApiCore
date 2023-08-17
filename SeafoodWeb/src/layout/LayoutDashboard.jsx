@@ -1,3 +1,4 @@
+import CategoryManage from "../modules/category/CategoryManage";
 import DashboardSidebar from "../modules/dashboard/DashboardSidebar";
 import DashboardTopBar from "../modules/dashboard/DashboardTopBar";
 
@@ -8,7 +9,7 @@ const LayoutDashboard = () => {
             <div className="flex gap-x-10">
                 <DashboardSidebar></DashboardSidebar>
                 <div>
-                    lafhalhflafhlahflafhls
+                  <CategoryManage></CategoryManage>
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ const IconCampaign = () => {
         fill="currentColor"
       />
     </svg>
+   
     );
 };
 

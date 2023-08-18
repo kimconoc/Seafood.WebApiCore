@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LayoutAuthentication from "../layout/LayoutAuthentication";
 import Label from "../components/label/Label";
 import { Input } from "../components/input";
@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import IconEyeToggle from "../components/icons/IconEyeToggle";
 import useToggleValue from "../hooks/useToggleValue";
+import authService from "../services/auth.service";
 const schema = yup.object({
   name: yup.string().required("This field is required"),
   email: yup
@@ -22,6 +23,7 @@ const schema = yup.object({
     .min(8, "Password must be 8 character "),
 });
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     control,
@@ -30,8 +32,26 @@ const SignUpPage = () => {
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
-  const handleSignUp = (values) => {
-    console.log(values);
+  const handleSignUp = async (values) => {
+    const signUpModel ={
+      username:values.name,
+      password:values.password, 
+      displayname:"string",
+      mobile:"string",
+      email:values.email,
+      createdBy:"dev"
+    }
+    try{
+        await authService.userAPI.signup(signUpModel).then(()=>{
+         
+          navigate("/sign-in")
+          window.location.reload();
+        },(error) => {
+          console.log(error);
+        })
+    }catch(err){
+      console.log(err);
+    }
   };
   const { value: acceptTerm, handleToggleValue: handleToggleTerm } =
     useToggleValue();

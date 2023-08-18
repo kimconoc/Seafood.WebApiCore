@@ -36,7 +36,7 @@ const CategoryManage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const resp = await axios.get(
-        "https://seafoodapi.azurewebsites.net/api/category/getlist"
+        "http://seafoodapi.azurewebsites.net/api/category/getlist"
       );
       if (resp && resp.data) {
         setListCategory(resp.data);
@@ -45,9 +45,9 @@ const CategoryManage = () => {
     fetchData();
   }, []);
   return (
-    <div className="w-full max-w-[1440px]">
+    <div className="w-full">
       <DashboardHeading title="Categories" desc="Manage your category">
-        <Button kind="primary" height="60px" href="/manage/add-category">
+        <Button kind="primary" height="60px" href="/add-category">
           Create category
         </Button>
       </DashboardHeading>
@@ -61,7 +61,7 @@ const CategoryManage = () => {
       <div>
         <TableContainer component={Paper}>
           <Table
-            sx={{ minWidth: 700, width: 1440 }}
+            sx={{ minWidth: 700, }}
             aria-label="customized table"
           >
             <TableHead>

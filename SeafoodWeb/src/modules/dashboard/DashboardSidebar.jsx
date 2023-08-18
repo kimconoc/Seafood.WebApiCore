@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
-import IconCampaign from "../../components/icons/IconCampaign";
 import IconDarkmode from "../../components/icons/IconDarkmode";
 import IconDashboard from "../../components/icons/IconDashboard";
 import IconLogout from "../../components/icons/IconLogout";
 import IconPayment from "../../components/icons/IconPayment";
 import IconProfile from "../../components/icons/IconProfile";
 import IconWithdraw from "../../components/icons/IconWithdraw";
+import IconCategory from "../../components/icons/IconCategory";
 
 const sidebarLinks = [
     {
@@ -14,9 +14,9 @@ const sidebarLinks = [
       url: "/",
     },
     {
-      icon: <IconCampaign></IconCampaign>,
-      title: "Campaign",
-      url: "/campaign",
+      icon: <IconCategory></IconCategory>,
+      title: "Categogy",
+      url: "/category",
     },
     {
       icon: <IconPayment></IconPayment>,

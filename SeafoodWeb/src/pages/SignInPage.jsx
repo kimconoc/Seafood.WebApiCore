@@ -32,7 +32,7 @@ const SignInPage = () => {
     useToggleValue();
   const handleSignIn = async (values) => {
     try {
-      await authService.login(values.name, values.password).then(
+      await authService.userAPI.signIn(values.name, values.password).then(
         () => {
           navigate("/");
           window.location.reload();

@@ -1,49 +1,35 @@
+
 import axios from "axios";
+import Cookies from 'universal-cookie';
+import BaseAPI from "../api/BaseApi";
+// const API_URL ="http://localhost:5678/api";
+// const API_URL ="https://seafoodapi.azurewebsites.net/api"
 
-const API_URL = "https://seafoodapi.azurewebsites.net/api";
-
-const signup = (username, password) => {
-  return axios
-    .post(API_URL + "/user/signup", {
-      username,
-      password,
-    })
-    .then((response) => {
-      console.log(response);
-      if (response.data.token) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+class UserApi extends BaseAPI{
+  cookies = new Cookies();
+  async signIn(username, password){
+    return axios.post(this.base_url+"/user/signIn",{username,password})
+    .then((res) => {
+      this.cookies.set("token", res.data.token)
+      if(res.data.token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
       }
-
-      return response.data;
     });
-};
-
-const login = (username, password) => {
-  return axios
-    .post(`${API_URL}/user/signIn`, {
-      username,
-      password,
-    })
-    .then((response) => {
-      console.log(response);
-      if (response.data.token) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-      return response.data;
-    });
-};
-
-const logout = () => {
+  }
+    async signup(signUpModel){
+    return axios.post(this.base_url + "/user/signup",signUpModel);
+  }
+}
+function logout() {
   localStorage.removeItem("user");
-};
+}
 
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
-
+const userAPI = new UserApi("");
 const authService = {
-  signup,
-  login,
+  userAPI,
   logout,
   getCurrentUser,
 };

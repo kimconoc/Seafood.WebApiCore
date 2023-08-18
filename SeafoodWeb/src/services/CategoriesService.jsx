@@ -1,7 +1,8 @@
-import axios from "axios"
+import BaseAPI from "../api/BaseApi";
 
-const fetchAllCategory = ()=>{
-    return axios.get("http://localhost:5678/api/Category/getList");
+class CategoryApi extends BaseAPI{
+
 }
 
-export {fetchAllCategory};
+const categoryApi = new CategoryApi("category");
+export default categoryApi;

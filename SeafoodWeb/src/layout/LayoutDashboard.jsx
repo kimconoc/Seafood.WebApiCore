@@ -1,4 +1,4 @@
-import CategoryManage from "../modules/category/CategoryManage";
+import { Outlet } from "react-router-dom";
 import DashboardSidebar from "../modules/dashboard/DashboardSidebar";
 import DashboardTopBar from "../modules/dashboard/DashboardTopBar";
 
@@ -8,8 +8,8 @@ const LayoutDashboard = () => {
             <DashboardTopBar></DashboardTopBar>
             <div className="flex gap-x-10">
                 <DashboardSidebar></DashboardSidebar>
-                <div>
-                  <CategoryManage></CategoryManage>
+                <div className="w-full">
+                <Outlet></Outlet>                  
                 </div>
             </div>
         </div>

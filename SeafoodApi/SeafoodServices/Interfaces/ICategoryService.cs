@@ -12,7 +12,7 @@ namespace SeafoodServices.Interfaces
         Task<bool> CreateCategory(CategorysDTO categoryDTO);
         Task<IEnumerable<CategorysDTO>> GetAllCategories();
         Task<CategorysDTO> GetCategoryById(Guid id);
-        Task<bool> UpdateCategory(CategorysDTO categoryDTO);
+        Task<bool> UpdateCategory(Guid id,CategorysDTO categoryDTO);
         Task<bool> DeleteCategory(Guid id);
     }
 }

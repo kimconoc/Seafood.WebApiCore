@@ -11,6 +11,7 @@ namespace SeafoodApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -18,7 +19,6 @@ namespace SeafoodApi.Controllers
         {
             _categoryService = categoryService;
         }
-        [Route("getlist")]
         [HttpGet]
         public async Task<IActionResult> GetCategoryList()
         {
@@ -54,11 +54,11 @@ namespace SeafoodApi.Controllers
         }
         [Authorize(Role.Admin)]
         [HttpPut]
-        public async Task<IActionResult> UpdateCategory(CategorysDTO categoryDTO)
+        public async Task<IActionResult> UpdateCategory(Guid id,CategorysDTO categoryDTO)
         {
             if(categoryDTO != null)
             {
-                var isUpdateCategory = await _categoryService.UpdateCategory(categoryDTO);
+                var isUpdateCategory = await _categoryService.UpdateCategory(id,categoryDTO);
                 if (isUpdateCategory)
                 {
                     return Ok(isUpdateCategory);

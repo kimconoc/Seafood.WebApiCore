@@ -1,62 +1,93 @@
-import { Button } from "components/button";
-import { Radio } from "components/checkbox";
-import { Field } from "components/field";
-import { Input } from "components/input";
-import { Label } from "components/label";
-import DashboardHeading from "module/dashboard/DashboardHeading";
-import { categoryStatus } from "utils/constants";
+import FromGroup from "../../components/common/FromGroup";
+import { useForm } from "react-hook-form";
+import categoryApi from "../../services/CategoriesService";
+import { toast } from "react-toastify";
+import DashboardHeading from "../dashboard/DashboardHeading";
+import Label from "../../components/label/Label";
+import { Button } from "../../components/button";
+import { Input } from "../../components/input";
+import { useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+
 const CategoryUpdate = () => {
+  const { control, handleSubmit, reset } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      name: "",
+      code: "",
+      icon: "",
+    },
+  });
+  const [params] = useSearchParams();
+  const categoryId = params.get("id");
+
+  useEffect(() => {
+    async function featchData() {
+      const slug = "/getcategorybyid";
+      const data = await categoryApi.getById(slug, categoryId);
+
+      reset({
+        name: data.data.name,
+        code: data.data.code,
+        icon: data.data.icon,
+      });
+    }
+    featchData();
+  }, [categoryId, reset]);
+  const handleUpdate = async (values) => {
+    const CategoryModel = {
+      name: values.name,
+      code: values.code,
+      icon: values.icon,
+    };
+    try {
+      await categoryApi.update(categoryId, CategoryModel).then(() => {
+        toast.success("successfully");
+      });
+    } catch (err) {
+      toast.error("Update không thành công");
+    } finally {
+      reset({
+        name: "",
+        code: "",
+        icon: "",
+      });
+    }
+  };
   return (
-    <div>
+    <div className="w-full">
       <DashboardHeading
         title="Update category"
-        desc={`Update your category id:`}
+        desc="Update category"
       ></DashboardHeading>
-      <form>
-        <div className="form-layout">
-          <Field>
+      <form onSubmit={handleSubmit(handleUpdate)}>
+        <div className="mb-20 w-full max-w-[640px] mx-auto">
+          <FromGroup>
             <Label>Name</Label>
             <Input
-             
+              control={control}
               name="name"
               placeholder="Enter your category name"
             ></Input>
-          </Field>
-          <Field>
-            <Label>Slug</Label>
+          </FromGroup>
+          <FromGroup>
+            <Label>Code</Label>
             <Input
-      
-              name="slug"
-              placeholder="Enter your slug"
+              control={control}
+              name="code"
+              placeholder="Enter your category code"
             ></Input>
-          </Field>
+          </FromGroup>
+          <FromGroup>
+            <Label>Icon</Label>
+            <Input
+              control={control}
+              name="icon"
+              placeholder="Enter your category icon"
+            ></Input>
+          </FromGroup>
         </div>
-        <div className="form-layout">
-          <Field>
-            <Label>Status</Label>
-            <div className="flex flex-wrap gap-x-5">
-              <Radio
-                name="status"
-              
-                value={categoryStatus.APPROVED}
-              >
-                Approved
-              </Radio>
-              <Radio
-                name="status"
-              
-                value={categoryStatus.UNAPPROVED}
-              >
-                Unapproved
-              </Radio>
-            </div>
-          </Field>
-        </div>
-        <Button
-          kind="primary"
-          className="mx-auto w-[200px]"
-          type="submit"
-        >
+        <Button kind="primary" className="mx-auto w-[260px]" type="submit">
           Update category
         </Button>
       </form>

@@ -1,16 +1,25 @@
-import { Cookies } from "react-cookie";
-
 export default function authHeader() {
-  const cookies = new Cookies();
-  const token = cookies.get("token");
-
-  if (token) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) {
     return {
       headers: {
-        Authorization: cookies.get("token"),
+        Authorization: user.token,
       },
     };
   } else {
     return {};
   }
 }
+
+// export default function authHeader() {
+//   const user = JSON.parse(localStorage.getItem("user"));
+
+//   if (user && user.accessToken) {
+//     // return { Authorization: 'Bearer ' + user.accessToken };
+//     return {  headers: {
+//       Authorization: user.get("token"),
+//     }, };
+//   } else {
+//     return {};
+//   }
+// }

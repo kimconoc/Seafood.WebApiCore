@@ -103,6 +103,7 @@ namespace SeafoodServices.Services
                 user.Mobile = signUp.Mobile;
                 user.Email = signUp.Email;
                 user.Company = signUp.Company;
+                user.Roles = "User";
                 user.CreatedAt = DateTime.UtcNow;
                 user.CreatedBy = "dev-local";
                 await _unitOfWork.Users.Add(user);

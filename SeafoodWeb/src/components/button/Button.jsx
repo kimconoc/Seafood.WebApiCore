@@ -25,7 +25,7 @@ const Button = ({
       break;
     case "ghost":
       defaultClassName =
-        defaultClassName + " bg-secondary bg-opacity-10 text-secondary";
+        defaultClassName + " bg-primary bg-opacity-10 text-primary";
       break;
 
     default:

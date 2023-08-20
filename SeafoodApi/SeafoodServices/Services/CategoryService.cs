@@ -76,19 +76,20 @@ namespace SeafoodServices.Services
 
       
 
-        public async Task<bool> UpdateCategory(CategorysDTO categoryDTO)
+        public async Task<bool> UpdateCategory(Guid id,CategorysDTO categoryDTO)
         {
            if( categoryDTO != null)
             {
-                var category = _mapper.Map<Category>(categoryDTO);
-
-                var cate = await _unitOfWork.Categorys.GetById(category.Id);
+                var cate = await _unitOfWork.Categorys.GetById(id);
+                var category = _mapper.Map<Category>(cate);
+               
                 if (category != null)
                 {
-                    cate.Name = category.Name;
-                    cate.Code = category.Code;
-                    cate.Icon = category.Icon;
-                   await _unitOfWork.Categorys.Update(cate);
+                    category.Id = id;
+                    category.Name = categoryDTO.Name;
+                    category.Code = categoryDTO.Code;
+                    category.Icon = categoryDTO.Icon;
+                   await _unitOfWork.Categorys.Update(category);
                     var result = _unitOfWork.Save();
                     if (result > 0)
                         return true;

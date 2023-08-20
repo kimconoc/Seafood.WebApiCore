@@ -1,4 +1,3 @@
-
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
 import { Input } from "../../components/input";
@@ -7,14 +6,13 @@ import DashboardHeading from "../dashboard/DashboardHeading";
 import FromGroup from "../../components/common/FromGroup";
 import categoryApi from "../../services/CategoriesService";
 import { toast } from "react-toastify";
+import authService from "../../services/auth.service";
+import { useNavigate } from "react-router-dom";
 
 const CategoryAddNew = () => {
-  const {
-    control,
-    handleSubmit,
-    reset,
-  
-  } = useForm({
+  const navigate = useNavigate();
+
+  const { control, handleSubmit, reset } = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -22,26 +20,29 @@ const CategoryAddNew = () => {
       icon: "",
     },
   });
-  const handleAddNewCategory = async(values)=>{
+  const handleAddNewCategory = async (values) => {
     const CategoryModel = {
-      name:values.name,
-      code:values.code,
-      icon:values.icon,
-    }
-      try{
-        await categoryApi.create(CategoryModel).then(
-          toast.success("Create new category successfully")
-        )
-      }catch(err){
+      name: values.name,
+      code: values.code,
+      icon: values.icon,
+    };
+    try {
+      await categoryApi.create(CategoryModel).then(() => {
+        toast.success("Create new category successfully");
+      });
+    } catch (err) {
       toast.error("Thêm không thành công");
-      }finally{
-        reset({
-          name: "",
-          code: "",
-          icon: "",
-        })
-      }
-  }
+      authService.logout();
+      navigate("/sign-in");
+      window.location.reload();
+    } finally {
+      reset({
+        name: "",
+        code: "",
+        icon: "",
+      });
+    }
+  };
   return (
     <div className="w-full">
       <DashboardHeading
@@ -49,7 +50,7 @@ const CategoryAddNew = () => {
         desc="Add new category"
       ></DashboardHeading>
       <form onSubmit={handleSubmit(handleAddNewCategory)}>
-         <div className="mb-20 w-full max-w-[640px] mx-auto">
+        <div className="mb-20 w-full max-w-[640px] mx-auto">
           <FromGroup>
             <Label>Name</Label>
             <Input
@@ -75,15 +76,10 @@ const CategoryAddNew = () => {
             ></Input>
           </FromGroup>
         </div>
-        <Button
-          kind="primary"
-          className="mx-auto w-[260px]"
-          type="submit"
-        >
+        <Button kind="primary" className="mx-auto w-[260px]" type="submit">
           Add new category
         </Button>
       </form>
-      
     </div>
   );
 };

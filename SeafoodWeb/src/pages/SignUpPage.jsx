@@ -11,6 +11,8 @@ import * as yup from "yup";
 import IconEyeToggle from "../components/icons/IconEyeToggle";
 import useToggleValue from "../hooks/useToggleValue";
 import authService from "../services/auth.service";
+import { toast } from "react-toastify";
+
 const schema = yup.object({
   name: yup.string().required("This field is required"),
   email: yup
@@ -33,23 +35,23 @@ const SignUpPage = () => {
     mode: "onSubmit",
   });
   const handleSignUp = async (values) => {
-    const signUpModel ={
-      username:values.name,
-      password:values.password, 
-      displayname:"string",
-      mobile:"string",
-      email:values.email,
-      createdBy:"dev"
-    }
-    try{
-        await authService.userAPI.signup(signUpModel).then(()=>{
-         
-          navigate("/sign-in")
-          window.location.reload();
-        },(error) => {
-          console.log(error);
-        })
-    }catch(err){
+    const signUpModel = {
+      username: values.name,
+      password: values.password,
+      displayname: "string",
+      mobile: "string",
+      email: values.email,
+      createdBy: "dev",
+    };
+    try {
+      await authService.userAPI.signup(signUpModel).then(() => {
+        toast.success("Đăng ký thành công");
+
+        navigate("/sign-in");
+        window.location.reload();
+      });
+    } catch (err) {
+      toast.error("Username hoặc password đã tồn tại");
       console.log(err);
     }
   };

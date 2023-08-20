@@ -7,11 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { ActionDelete, ActionEdit, ActionView } from "../../components/action";
 import DashboardHeading from "../dashboard/DashboardHeading";
 import { Button } from "../../components/button";
-
+import { useNavigate } from "react-router-dom";
+import authService from "../../services/auth.service";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import categoryApi from "../../services/CategoriesService";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -35,19 +38,52 @@ const CategoryManage = () => {
   const [listCategory, setListCategory] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const resp = await axios.get(
-        "http://seafoodapi.azurewebsites.net/api/category/getlist"
-      );
+      const resp = await categoryApi.getAll();
       if (resp && resp.data) {
         setListCategory(resp.data);
       }
     };
     fetchData();
   }, []);
+  const navigate = useNavigate();
+  const user = authService.getCurrentUser();
+
+  const handleDeleteCategory = (id) => {
+    user.role == "Admin"
+      ? Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await categoryApi.delete(id);
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              window.location.reload();
+            } catch (err) {
+              authService.logout();
+              navigate("/sign-in");
+            }
+          }
+        })
+      : toast.error("Bạn cần có quyền admin");
+  };
   return (
     <div className="w-full">
       <DashboardHeading title="Categories" desc="Manage your category">
-        <Button kind="primary" height="60px" href="/add-category">
+        <Button
+          kind="ghost"
+          height="60px"
+          onClick={() => {
+            user.role == "Admin"
+              ? navigate("/add-category")
+              : toast.error("Bạn cần có quyền admin");
+          }}
+        >
           Create category
         </Button>
       </DashboardHeading>
@@ -60,10 +96,7 @@ const CategoryManage = () => {
       </div>
       <div>
         <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: 700, }}
-            aria-label="customized table"
-          >
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>ID</StyledTableCell>
@@ -75,21 +108,37 @@ const CategoryManage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {listCategory.map((row) => (
-                <StyledTableRow key={row.name}>
+              {listCategory.map((category) => (
+                <StyledTableRow key={category.id}>
                   <StyledTableCell component="th" scope="row">
-                    {row.id}
+                    {category.id}
                   </StyledTableCell>
-                  <StyledTableCell align="left">{row.name}</StyledTableCell>
-                  <StyledTableCell align="left">{row.code}</StyledTableCell>
+                  <StyledTableCell align="left">
+                    {category.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="left">
+                    {category.code}
+                  </StyledTableCell>
                   <StyledTableCell>
                     <ActionView></ActionView>
                   </StyledTableCell>
                   <StyledTableCell>
-                    <ActionEdit></ActionEdit>
+                    <ActionEdit
+                      onClick={() => {
+                        if (user.role == "Admin") {
+                          navigate(`/update-category?id=${category.id}`);
+                        } else {
+                          toast.error("Bạn cần có quyền admin");
+                        }
+                      }}
+                    ></ActionEdit>
                   </StyledTableCell>
                   <StyledTableCell>
-                    <ActionDelete></ActionDelete>
+                    <ActionDelete
+                      onClick={() => {
+                        handleDeleteCategory(category.id);
+                      }}
+                    ></ActionDelete>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

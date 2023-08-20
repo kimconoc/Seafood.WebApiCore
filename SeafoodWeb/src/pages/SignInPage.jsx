@@ -10,6 +10,8 @@ import FromGroup from "../components/common/FromGroup";
 import Button from "../components/button/Button";
 import useToggleValue from "../hooks/useToggleValue";
 import authService from "../services/auth.service";
+import { toast } from "react-toastify";
+
 const schema = yup.object({
   name: yup.string().required("This field is required"),
   password: yup
@@ -32,16 +34,15 @@ const SignInPage = () => {
     useToggleValue();
   const handleSignIn = async (values) => {
     try {
-      await authService.userAPI.signIn(values.name, values.password).then(
-        () => {
-          navigate("/");
-          window.location.reload();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      await authService.userAPI
+        .signIn(values.name, values.password)
+        .then(() => {
+          toast.success("Đăng nhập thành công");
+          navigate("/home");
+        });
     } catch (err) {
+      toast.error("Username or password incorrect ");
+
       console.log(err);
     }
   };

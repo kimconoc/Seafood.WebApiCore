@@ -25,7 +25,9 @@ namespace DoMains.DTO
         public string? Email { get; set; }
 
         public string? Company { get; set; }
-         public DateTime CreatedAt { get; set; }
+        public string? Roles { get; set; }
+
+        public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; } = null!;
 
 

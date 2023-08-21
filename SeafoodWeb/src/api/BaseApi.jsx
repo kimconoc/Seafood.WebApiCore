@@ -26,6 +26,9 @@ class BaseAPI {
   delete(id) {
     return axios.delete(this.base_url + "?id=" + id, authHeader());
   }
+  searchByName(slug,name){
+      return axios.get(this.base_url+slug +"?name="+name,authHeader());
+  }
 }
 
 export default BaseAPI;

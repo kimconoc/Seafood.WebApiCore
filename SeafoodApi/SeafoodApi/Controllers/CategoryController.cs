@@ -40,6 +40,22 @@ namespace SeafoodApi.Controllers
             }
             else { return BadRequest(); }
         }
+        [HttpGet("search")]
+        public async Task<IActionResult> GetCategoryByName(string name)
+        {
+            try
+            {
+                var result = await _categoryService.GetCategoriesByName(name);
+                if (result.Any())
+                {
+                    return Ok(result);
+                }
+                return NotFound();
+            }catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error in retrieving data from database");
+            }
+        }
         [Authorize(Role.Admin)]
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CategorysDTO categoryDTO)

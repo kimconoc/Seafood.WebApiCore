@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Azure.Core;
 using DoMains.DTO;
 using DoMains.Models;
@@ -97,6 +98,18 @@ namespace SeafoodServices.Services
                 }
             }
             return false;
+        }
+
+        public async Task<IEnumerable<CategorysDTO>> GetCategoriesByName(string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                var categories = await _unitOfWork.Categorys.Search(name);
+                var reponses = categories.Select(c => _mapper.Map<CategorysDTO>(c));
+                return reponses.ToList();
+
+            }
+            return null;
         }
     }
 }

@@ -25,7 +25,7 @@ const SignInPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors ,isSubmitting},
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
@@ -90,7 +90,7 @@ const SignInPage = () => {
             </span>
           </div>
         </FromGroup>
-        <Button className="w-full" kind="primary" type="submit">
+        <Button className="w-full" kind="primary" type="submit" isLoading={isSubmitting}>
           Sign in
         </Button>
       </form>

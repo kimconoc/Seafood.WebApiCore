@@ -14,5 +14,6 @@ namespace SeafoodServices.Interfaces
         Task<CategorysDTO> GetCategoryById(Guid id);
         Task<bool> UpdateCategory(Guid id,CategorysDTO categoryDTO);
         Task<bool> DeleteCategory(Guid id);
+        Task<IEnumerable<CategorysDTO>> GetCategoriesByName(string name);
     }
 }

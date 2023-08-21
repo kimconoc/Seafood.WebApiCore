@@ -15,6 +15,8 @@ import authService from "../../services/auth.service";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import categoryApi from "../../services/CategoriesService";
+import { debounce } from "lodash";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -36,18 +38,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 const CategoryManage = () => {
   const [listCategory, setListCategory] = useState([]);
+  const [filter,setFilter] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       const resp = await categoryApi.getAll();
       if (resp && resp.data) {
         setListCategory(resp.data);
       }
+      if(filter){
+        const filterCategory = await categoryApi.searchByName("/search",filter)
+        if(filterCategory && filterCategory.data){
+          setListCategory(filterCategory.data)
+        }
+      }
     };
     fetchData();
-  }, []);
+  }, [filter]
+  );
   const navigate = useNavigate();
   const user = authService.getCurrentUser();
-
+  const handleInputFilter =debounce((e)=>{
+      setFilter(e.target.value)
+  },500)
   const handleDeleteCategory = (id) => {
     user.role == "Admin"
       ? Swal.fire({
@@ -92,6 +104,7 @@ const CategoryManage = () => {
           type="text"
           placeholder="Search category..."
           className="py-4 px-5 border border-gray-300 rounded-lg outline-none"
+          onChange={handleInputFilter}
         />
       </div>
       <div>

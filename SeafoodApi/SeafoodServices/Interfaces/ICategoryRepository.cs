@@ -10,6 +10,6 @@ namespace SeafoodServices.Interfaces
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
-       
+        Task<IEnumerable<Category>> Search(string name);
     }
 }

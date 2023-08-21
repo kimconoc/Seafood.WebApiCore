@@ -29,7 +29,7 @@ const SignUpPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors,isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
@@ -122,7 +122,7 @@ const SignUpPage = () => {
             </p>
           </Checkbox>
         </div>
-        <Button className="w-full" kind="primary" type="submit">
+        <Button className="w-full" kind="primary" type="submit" isLoading={isSubmitting}>
           Create my account
         </Button>
       </form>

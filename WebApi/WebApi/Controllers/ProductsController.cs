@@ -17,7 +17,7 @@ namespace Seafood.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(string name)
+        public async Task<IActionResult> GetAll(string? name)
         {
             var categories = await _productService.GetAll(name);
             return Ok(categories);

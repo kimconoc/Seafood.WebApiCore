@@ -51,6 +51,8 @@ namespace Seafood.Application.Services.Adresses
             if (product == null) throw new Exception("Không tìm thấy sản phẩm");
 
             product.IsDeleted = true;
+            product.DeletedAt = DateTime.Now;
+            product.DeletedBy= "admin";
             _context.SaveChanges();
 
             return true;

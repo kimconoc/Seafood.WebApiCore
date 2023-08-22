@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace SeafoodWpf.APPLICATION.ViewModel
 {
-    public class BaseViewModel : BasePropertyEvent, INotifyPropertyChanged
+    public class BaseViewModel : BasePropertyEvent
     {
     }
 

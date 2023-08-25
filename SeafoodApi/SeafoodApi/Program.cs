@@ -42,6 +42,7 @@ namespace SeafoodApi
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+               
             }
             app.UseCors(x => x
             .AllowAnyOrigin()

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoMains", "DoMains\DoMains.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeafoodServices", "SeafoodServices\SeafoodServices.csproj", "{7D5BD0A7-4F69-44DC-9B00-92931A8D291D}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0AEF31AC-E81A-4BC6-95E3-E0651AC9C332}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{969FCCB3-C40C-42FB-A6FD-2C4D6076C8EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{7D5BD0A7-4F69-44DC-9B00-92931A8D291D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D5BD0A7-4F69-44DC-9B00-92931A8D291D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D5BD0A7-4F69-44DC-9B00-92931A8D291D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AEF31AC-E81A-4BC6-95E3-E0651AC9C332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AEF31AC-E81A-4BC6-95E3-E0651AC9C332}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AEF31AC-E81A-4BC6-95E3-E0651AC9C332}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AEF31AC-E81A-4BC6-95E3-E0651AC9C332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969FCCB3-C40C-42FB-A6FD-2C4D6076C8EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969FCCB3-C40C-42FB-A6FD-2C4D6076C8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969FCCB3-C40C-42FB-A6FD-2C4D6076C8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969FCCB3-C40C-42FB-A6FD-2C4D6076C8EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

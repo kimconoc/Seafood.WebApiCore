@@ -3,7 +3,7 @@ import authHeader from "../commons/auth-header.common";
 
 class BaseAPI {
   constructor(path) {
-    this.base_url = "https://seafoodapi.azurewebsites.net/api/" + path;
+    this.base_url = "http://localhost:8080/api/" + path;
     // const API_URL ="https://seafoodapi.azurewebsites.net/api"
   }
 
@@ -26,8 +26,8 @@ class BaseAPI {
   delete(id) {
     return axios.delete(this.base_url + "?id=" + id, authHeader());
   }
-  searchByName(slug,name){
-      return axios.get(this.base_url+slug +"?name="+name,authHeader());
+  searchByName(slug, name) {
+    return axios.get(this.base_url + slug + "?name=" + name, authHeader());
   }
 }
 

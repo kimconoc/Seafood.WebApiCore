@@ -7,7 +7,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY [".//SeafoodApi.csproj", "SeafoodApi/"]
+COPY ["./SeafoodApi/SeafoodApi.csproj", "SeafoodApi/"]
 RUN dotnet restore "SeafoodApi/SeafoodApi.csproj"
 COPY . .
 WORKDIR "/src/SeafoodApi"

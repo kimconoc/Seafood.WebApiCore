@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>0aef31ac-e81a-4bc6-95e3-e0651ac9c332</ProjectGuid>
+    <ProjectGuid>969fccb3-c40c-42fb-a6fd-2c4d6076c8ee</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>seafoodapi</DockerServiceName>

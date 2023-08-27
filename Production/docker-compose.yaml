@@ -1,8 +1,20 @@
-version: '3'
+# version: '3'
+# services:
+#   nginx:
+#     build:
+#       context: .
+#     ports:
+#       - 3000:8001
+
+version: "3.4"
+
 services:
-  nginx:
-    build: 
+  seafoodapi:
+    image: lephuminh/seafoodapi
+    build:
       context: .
-    ports:
-      - 3000:80
-      
+      dockerfile: ../SeafoodApi/SeafoodApi/Dockerfile
+  db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+  nginx:
+    image: nginx:1.23.3

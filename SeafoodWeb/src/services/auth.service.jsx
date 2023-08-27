@@ -8,7 +8,7 @@ class UserApi extends BaseAPI {
   cookies = new Cookies();
   async signIn(username, password) {
     return axios
-      .post(this.base_url + "/user/signIn", { username, password })
+      .post(this.base_url + "user/signIn", { username, password })
       .then((res) => {
         // this.cookies.set("token", res.data.token);
         if (res.data.token) {
@@ -26,7 +26,7 @@ class UserApi extends BaseAPI {
       });
   }
   async signup(signUpModel) {
-    return axios.post(this.base_url + "/user/signup", signUpModel);
+    return axios.post(this.base_url + "user/signup", signUpModel);
   }
 }
 function logout() {
